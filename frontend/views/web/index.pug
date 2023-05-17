@@ -1,0 +1,13 @@
+extends ../app
+
+block variables
+  -
+    const pageTitle = 'Головна';
+
+block content
+  .page.index
+    a.button(href='/patients') Пацієнти
+    a.button(href='/episodes') Епізоди
+    a.button(href='/diagnoses') Аналізи
+
+block scripts

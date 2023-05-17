@@ -1,0 +1,32 @@
+.page.patients {
+  .patient-list {
+    .result {
+      margin-left: 5px;
+      margin-top: 10px;
+
+      span {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      div {
+        display: inline-block;
+      }
+
+      .titles {
+        span {
+          color: #63aeff;
+        }
+      }
+
+      .values {
+        margin-left: 10px;
+      }
+    }
+
+    span {
+      display: block;
+      margin-left: 3px;
+    }
+  }
+}

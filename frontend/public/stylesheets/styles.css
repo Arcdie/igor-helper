@@ -1,0 +1,270 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol,
+ul {
+  list-style: none; }
+
+blockquote,
+q {
+  quotes: none; }
+
+blockquote:before, blockquote:after {
+  content: '';
+  content: none; }
+
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+a {
+  text-decoration: none; }
+
+* {
+  font-family: sans-serif !important; }
+
+.page {
+  padding: 50px; }
+
+.link {
+  color: #63aeff;
+  text-decoration: underline; }
+
+.back {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  text-decoration: none; }
+
+.button {
+  background-color: #63aeff;
+  color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  display: inline-block;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer; }
+  .button:hover {
+    background-color: #2a90ff; }
+
+.input-text {
+  background-color: #fafafa;
+  border: 1px solid #d7dae0;
+  padding: 6px 10px;
+  border-radius: 2px;
+  outline: none; }
+  .input-text:hover {
+    border-color: #63aeff; }
+
+.reload {
+  width: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+  display: inline-block; }
+  .reload img {
+    width: 100%;
+    position: relative;
+    top: 4px; }
+
+.shadow {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 99999;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.8); }
+  .shadow.is_active {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+  .shadow .popup {
+    width: 300px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white; }
+
+.page.index a {
+  font-size: 25px;
+  margin-right: 10px; }
+
+.page.patients .patient-list .result {
+  margin-left: 5px;
+  margin-top: 10px; }
+  .page.patients .patient-list .result span {
+    display: block;
+    margin-bottom: 5px; }
+  .page.patients .patient-list .result div {
+    display: inline-block; }
+  .page.patients .patient-list .result .titles span {
+    color: #63aeff; }
+  .page.patients .patient-list .result .values {
+    margin-left: 10px; }
+
+.page.patients .patient-list span {
+  display: block;
+  margin-left: 3px; }
+
+.page.episodes .search {
+  width: 100%; }
+  .page.episodes .search input[type="text"] {
+    width: 400px; }
+  .page.episodes .search button {
+    margin-left: 15px; }
+
+.page.episodes .patient-list {
+  width: 100%;
+  margin-top: 30px; }
+  .page.episodes .patient-list .patient {
+    display: block;
+    margin-bottom: 20px; }
+    .page.episodes .patient-list .patient a.link {
+      font-size: 17px; }
+    .page.episodes .patient-list .patient a.episode {
+      margin-top: 5px;
+      color: #585f73;
+      display: block; }
+
+.page.diagnoses .search {
+  width: 100%; }
+  .page.diagnoses .search input[type="text"] {
+    width: 400px; }
+  .page.diagnoses .search button {
+    margin-left: 15px; }
+
+.page.diagnoses .patient-list {
+  width: 100%;
+  margin-top: 30px; }
+  .page.diagnoses .patient-list .patient {
+    display: block;
+    margin-bottom: 20px; }
+    .page.diagnoses .patient-list .patient a.link {
+      font-size: 17px; }
+    .page.diagnoses .patient-list .patient .diagnosis {
+      margin-top: 10px; }
+      .page.diagnoses .patient-list .patient .diagnosis a {
+        margin-top: 5px;
+        color: #585f73; }
+      .page.diagnoses .patient-list .patient .diagnosis .result {
+        margin-left: 5px;
+        margin-top: 10px; }
+        .page.diagnoses .patient-list .patient .diagnosis .result span {
+          display: block;
+          margin-bottom: 5px; }
+        .page.diagnoses .patient-list .patient .diagnosis .result div {
+          display: inline-block; }
+        .page.diagnoses .patient-list .patient .diagnosis .result .titles span {
+          color: #63aeff; }
+        .page.diagnoses .patient-list .patient .diagnosis .result .values {
+          margin-left: 10px; }
+      .page.diagnoses .patient-list .patient .diagnosis span {
+        display: block;
+        margin-left: 3px; }

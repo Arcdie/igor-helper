@@ -1,0 +1,24 @@
+extends ../app
+
+block variables
+	-
+		const pageTitle = 'Користувачі';
+
+block content
+	.page.patients
+		a.back.link(href="/", title="На головну") <-
+
+		.patient-list
+			.result
+				.titles
+					span Кількість пацієнтів:
+
+				.values
+					span#number-patients 0
+
+				.reload
+					img(src="/images/reload.png", alt="reload", title="Оновити")
+
+block scripts
+	script(src='/javascripts/websocket.js')
+	script(src='/javascripts/web/patients.js')
