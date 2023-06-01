@@ -16,3 +16,5 @@ Thumbs.db
 /logs
 /files
 /frontend/public/files
+atom-sftp-sync.json
+off-atom-sftp-sync.json
