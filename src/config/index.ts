@@ -23,6 +23,10 @@ const config = {
     apikey: String(process.env.SENDGRID_APIKEY),
   },
 
+  google: {
+    apikey: String(process.env.GOOGLE_APIKEY),
+  },
+
   jwt: {
     secret: String(process.env.JWT_SECRET),
   },

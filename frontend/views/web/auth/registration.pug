@@ -1,0 +1,94 @@
+extends ../../app
+
+block variables
+	-
+		const pageTitle = 'Реєстрація';
+
+block content
+	.page.auth
+		.container
+			.col-4.mx-auto.my-auto
+				.form.bg-white
+					.col-12.mx-auto
+						.ih-input
+							.ih-label
+								span Email:
+							.col-12
+								.input-group
+									input#email.form-control(type="email", tabindex="1")
+									.invalid-feedback Невалідний email
+
+						.ih-input
+							.ih-label
+								span Пароль:
+							.col-12
+								.input-group
+									input#password.form-control(type="password", tabindex="2")
+									.invalid-feedback Пароль має містити 6 і більше символів
+
+						.ih-input
+							.ih-label
+								span Ім'я:
+							.col-12
+								.input-group
+									input#name.form-control(type="text", tabindex="3")
+									.invalid-feedback Поле має бути заповнено
+
+						.ih-input
+							.ih-label
+								span Компанія:
+							.col-12
+								.input-group
+									input#companyName.form-control(type="text", tabindex="4")
+									.invalid-feedback Поле має бути заповнено
+
+						.ih-input
+							.ih-label
+								span Телефон:
+							.col-12
+								.input-group
+									input#phoneNumber.form-control(type="text", tabindex="4")
+									.invalid-feedback Поле має бути заповнено
+
+						.ih-input
+							.ih-label
+								span Постачальник:
+							.col-12
+								.input-group
+									input#providerName.form-control(type="text", tabindex="6")
+									.invalid-feedback Поле має бути заповнено
+
+					hr.mt-1.mb-1
+
+					.col-12.mx-auto.ih-enterance
+						.row.align-items-center
+							.col-6
+								a.link-secondary(href="/auth/login") Вхід
+
+							.col-6.float-end
+								button#register.col-12.btn.btn-primary(tabindex="7") Зареєструватися
+
+					hr.mt-1.mb-1
+
+					.col-12.mx-auto.ih-help
+						.row
+							.col-1
+								img(src="/images/telegram.png", alt="telegram")
+							.col-11
+								span @Arcdie
+						
+						.row
+							.col-1
+								img(src="/images/phone.png", alt="phone")
+							.col-11
+								span +38 (067) 067 06 07
+						
+						.row
+							.col-1
+								img(src="/images/envelope.png", alt="envelope")
+							.col-11
+								span some.mail@gmail.com
+
+block scripts
+	script(src='/libs/validator.min.js')
+	script(src='/javascripts/web/auth/registration.js')

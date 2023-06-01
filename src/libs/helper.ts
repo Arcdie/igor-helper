@@ -8,6 +8,10 @@ export const isEmptyObject = <T extends object>(obj: T) => Object.keys(obj).leng
 
 export const getEnv = () => process.env.NODE_ENV || 'development';
 
+export const toUTF8 = (str: string) => Buffer.from(str, 'latin1').toString('utf8');
+
+export const getRadians = (x: number) => x * Math.PI / 180;
+
 export const getUniqueArray = <T>(arr: T[]) => [...new Set(arr)];
 
 export const getUnix = (targetDate?: number) => {
@@ -16,7 +20,7 @@ export const getUnix = (targetDate?: number) => {
 };
 
 export const getRandomNumber = (min: number, max: number) => Math.floor(Math.random() * (max - min)) + min;
-export const getRandStr = (limit: number) => crypto.randomBytes(20).toString('hex').substring(0, limit);
+export const getRandomString = (limit: number) => crypto.randomBytes(20).toString('hex').substring(0, limit);
 
 export const getQueue = <T>(arr: T[], limiter: number) => {
   const queues = [];
@@ -55,6 +59,8 @@ export const checkBody = <B>(requiredFields: string[], body: B) => {
   const decomposedBody = Object.entries(body as any);
 
   return requiredFields.filter(key => {
+    if (key.includes('?')) return false;
+
     const elem = decomposedBody.find(e => e[0] === key);
     return (!elem || !elem[1]);
   });

@@ -1,0 +1,141 @@
+#map {
+  width: 100%;
+  height: 650px;
+}
+
+.modal#createReport, .modal#updateReport {
+  .ih-file {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    &.ih-file-new {
+      button.ih-close {
+        display: block;
+      }
+    }
+
+    &.ih-file-uploaded {
+      a {
+        display: flex;
+      }
+
+      button.ih-close {
+        display: block;
+      }
+    }
+
+    .ih-choose-file {
+      input[type=file] {
+        width: 100%;
+        position: absolute;
+        z-index: 2;
+        opacity: 0;
+      }
+
+      input[type=text], span {
+        position: relative;
+        z-index: 1;
+      }
+    }
+
+    a {
+      display: none;
+      justify-content: center;
+
+      img {
+        width: 75%;
+      }
+    }
+
+    button.ih-close {
+      display: none;
+      margin-left: 6px;
+    }
+  }
+
+  .ih-add-file {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.page.buildings {
+  .ih-sorting {
+    padding: 15px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    .ih-sorting-option {
+      margin-bottom: 15px;
+    }
+
+    .ih-add-building {
+      button {
+        float: right;
+      }
+    }
+  }
+
+  .ih-list-building {
+    padding: 15px;
+    background-color: white;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+
+    .ih-building-container {
+      margin-bottom: 15px;
+      padding-left: 7px;
+      padding-right: 7px;
+
+      .ih-building {
+          padding: 15px;
+          border: 1px solid #6c757d;
+      
+          .ih-status {
+            display: flex;
+            justify-content: space-between;
+          }
+
+          .ih-building-body {
+            margin: 15px 0;
+
+            span {
+              display: block;
+            }
+          }
+      
+          /* Body with images
+          .ih-building-body {
+            display: flex;
+            align-items: center;
+      
+            .ih-building-image {
+              img {
+                width: 100%;
+              }
+            }
+      
+            .ih-building-info {
+              span {
+                display: block;
+              }
+            }
+          }
+          */
+      
+          .ih-buttons {
+            display: flex;
+            justify-content: end;
+      
+            button {
+              margin-left: 10px;
+            }
+          }
+        }
+    }
+  }
+}

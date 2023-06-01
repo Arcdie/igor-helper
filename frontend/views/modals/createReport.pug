@@ -1,0 +1,40 @@
+#createReport.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5.modal-title Створити звіт
+        button.btn-close(data-bs-dismiss='modal')
+
+      .modal-body
+        .mb-3
+          label.form-label(for='createReportListEquipment') Обладнання
+          input#createReportListEquipment.form-control(type="text", placeholder="Введіть обладнання через кому", tabindex="1")
+          .invalid-feedback Поле має бути заповнено
+
+        .mb-3
+          label.form-label(for='createReportListSerialNumber') Серійні номери
+          input#createReportListSerialNumber.form-control(type="text", placeholder="Введіть серійні номери через кому", tabindex="2")
+          .invalid-feedback Поле має бути заповнено
+
+        .mb-3
+          label.form-label(for='createReportComment') Коментар
+          textarea#createReportComment.form-control(rows="3", tabindex="3")
+
+        .mb-3
+          .ih-container-file#createReportFiles
+            .ih-file.ih-file-uploaded
+              //- a(href="/images/glasses.png", alt="file", target="_blank", data-bs-toggle="tooltip" data-bs-placement="top" title="Проглянути")
+              //-   img(src="/images/glasses.png", alt="glasses")
+
+              .ih-choose-file.input-group
+                input.form-control(type="file")
+                span.input-group-text Оберіть файл
+                input.form-control(type="text")
+
+              button.btn-close.ih-close(data-bs-toggle="tooltip" data-bs-placement="top" title="Видалити")
+
+          .input-group.ih-add-file
+            button.btn.btn-secondary(title="Додати файл") + Файл
+
+      .modal-footer
+        button.btn.btn-primary#createReportButton(tabindex="4") Створити

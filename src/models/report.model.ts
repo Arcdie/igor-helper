@@ -14,12 +14,12 @@ const modelSchema: Record<keyof Omit<IReport, '_id'>, any> = {
     required: true,
   },
 
-  equipment: {
+  listEquipment: {
     type: String,
     required: true,
   },
 
-  serialNumber: {
+  listSerialNumber: {
     type: String,
     required: true,
   },

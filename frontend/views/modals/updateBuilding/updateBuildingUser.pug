@@ -1,0 +1,22 @@
+#updateBuilding.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5.modal-title Редагувати об'єкт
+        button.btn-close(data-bs-dismiss='modal')
+
+      .modal-body
+        .mb-3
+          label.form-label(for='updateBuildingName') Назва
+          input#updateBuildingName.form-control(type="text", tabindex="1")
+
+        .mb-3
+          label.form-label(for='updateBuildingListEquipment') Обладнання
+          input#updateBuildingListEquipment.form-control(type="text", placeholder="Введіть обладнання через кому", tabindex="2")
+
+        .mb-3
+          label.form-label(for='updateBuildingComment') Коментар
+          textarea#updateBuildingComment.form-control(rows="3", tabindex="3")
+
+      .modal-footer
+        button.btn.btn-primary#updateBuildingButton(tabindex="4") Редагувати

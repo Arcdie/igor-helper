@@ -3,8 +3,8 @@ import { HydratedDocument, Types } from 'mongoose';
 import { EReportStatus } from './EReportStatus';
 
 export interface IReportTemplate {
-  equipment: string;
-  serialNumber: string;
+  listEquipment: string;
+  listSerialNumber: string;
   comment?: string;
   status: EReportStatus;
 }

@@ -1,7 +1,8 @@
 import path from 'path';
 import { Server } from 'http';
 import bodyParser from 'body-parser';
-import express, { Express, ErrorRequestHandler } from 'express';
+import cookieParser from 'cookie-parser';
+import express, { Express, Response, ErrorRequestHandler } from 'express';
 
 import config from '../config';
 import routes from '../routes';
@@ -26,6 +27,7 @@ const useMiddlewares = (expressApp: Express) => {
   expressApp.use(bodyParser.urlencoded({ extended: false }));
 
   expressApp.use(express.static(`${frontFolder}/public`));
+  expressApp.use(cookieParser());
 
   if (!['production', 'test'].includes(getEnv())) {
     expressApp.use(morgan);
@@ -60,3 +62,8 @@ const init = () => {
 };
 
 export default init;
+
+export const setAuthCookies = (res: Response, token: string) => {
+  // todo: increase lifetime
+  res.cookie('Authorization', token, { httpOnly: true });
+};

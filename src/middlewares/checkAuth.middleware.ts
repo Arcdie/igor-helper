@@ -7,7 +7,7 @@ import * as userRepository from '../repositories/user.repository';
 
 import { EErrorCode } from '../interfaces/EErrorCode';
 
-const getTokenFromRequest = (req: Request): string | null =>
+export const getTokenFromRequest = (req: Request): string | null =>
   req.cookies?.authorization || req.cookies?.Authorization || req.headers?.authorization || req.headers?.Authorization;
 
 export default async (req: Request, res: Response, next: NextFunction) => {

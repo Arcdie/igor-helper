@@ -3,16 +3,15 @@ doctype html
 include ./includes/head
 	
 body
-	include ./includes/header
-
-	.shadow
-		.popup
-
 	block content
 
 	include ./includes/footer
-	
+
+	.alerts.col-2
+
 	script(src='/libs/jquery.min.js')
+	script(src='/libs/bootstrap.min.js')
+	script(src='/javascripts/helper.js')
 	script(src='/javascripts/common.js')
 
 	block scripts

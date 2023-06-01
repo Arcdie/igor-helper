@@ -1,270 +1,133 @@
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline; }
-
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block; }
-
 body {
-  line-height: 1; }
+  background: url("/images/background.png") repeat; }
 
-ol,
-ul {
-  list-style: none; }
-
-blockquote,
-q {
-  quotes: none; }
-
-blockquote:before, blockquote:after {
-  content: '';
-  content: none; }
-
-q:before, q:after {
-  content: '';
-  content: none; }
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0; }
-
-a {
-  text-decoration: none; }
-
-* {
-  font-family: sans-serif !important; }
+.alerts {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  z-index: 9999999; }
+  .alerts .alert {
+    display: flex;
+    justify-content: space-between; }
 
 .page {
-  padding: 50px; }
-
-.link {
-  color: #63aeff;
-  text-decoration: underline; }
-
-.back {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  text-decoration: none; }
-
-.button {
-  background-color: #63aeff;
-  color: white;
-  padding: 10px;
-  box-sizing: border-box;
-  display: inline-block;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer; }
-  .button:hover {
-    background-color: #2a90ff; }
-
-.input-text {
-  background-color: #fafafa;
-  border: 1px solid #d7dae0;
-  padding: 6px 10px;
-  border-radius: 2px;
-  outline: none; }
-  .input-text:hover {
-    border-color: #63aeff; }
-
-.reload {
-  width: 20px;
-  cursor: pointer;
-  margin-left: 10px;
-  display: inline-block; }
-  .reload img {
-    width: 100%;
-    position: relative;
-    top: 4px; }
-
-.shadow {
   width: 100%;
   height: 100%;
-  position: absolute;
-  z-index: 99999;
-  display: none;
-  background-color: rgba(0, 0, 0, 0.8); }
-  .shadow.is_active {
-    display: flex;
-    justify-content: center;
-    align-items: center; }
-  .shadow .popup {
-    width: 300px;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white; }
+  padding: 50px; }
 
-.page.index a {
-  font-size: 25px;
-  margin-right: 10px; }
+header {
+  margin-bottom: 20px; }
 
-.page.patients .patient-list .result {
-  margin-left: 5px;
-  margin-top: 10px; }
-  .page.patients .patient-list .result span {
-    display: block;
-    margin-bottom: 5px; }
-  .page.patients .patient-list .result div {
-    display: inline-block; }
-  .page.patients .patient-list .result .titles span {
-    color: #63aeff; }
-  .page.patients .patient-list .result .values {
-    margin-left: 10px; }
-
-.page.patients .patient-list span {
-  display: block;
-  margin-left: 3px; }
-
-.page.episodes .search {
-  width: 100%; }
-  .page.episodes .search input[type="text"] {
-    width: 400px; }
-  .page.episodes .search button {
-    margin-left: 15px; }
-
-.page.episodes .patient-list {
-  width: 100%;
-  margin-top: 30px; }
-  .page.episodes .patient-list .patient {
-    display: block;
+.page.auth .form {
+  padding: 30px 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
+  .page.auth .form .ih-input {
     margin-bottom: 20px; }
-    .page.episodes .patient-list .patient a.link {
-      font-size: 17px; }
-    .page.episodes .patient-list .patient a.episode {
-      margin-top: 5px;
-      color: #585f73;
-      display: block; }
-
-.page.diagnoses .search {
-  width: 100%; }
-  .page.diagnoses .search input[type="text"] {
-    width: 400px; }
-  .page.diagnoses .search button {
-    margin-left: 15px; }
-
-.page.diagnoses .patient-list {
-  width: 100%;
-  margin-top: 30px; }
-  .page.diagnoses .patient-list .patient {
-    display: block;
+    .page.auth .form .ih-input .ih-label {
+      margin-bottom: 8px; }
+  .page.auth .form .ih-help {
+    margin-top: 20px; }
+    .page.auth .form .ih-help img {
+      width: 20px; }
+  .page.auth .form .ih-enterance {
+    margin-top: 20px;
     margin-bottom: 20px; }
-    .page.diagnoses .patient-list .patient a.link {
-      font-size: 17px; }
-    .page.diagnoses .patient-list .patient .diagnosis {
-      margin-top: 10px; }
-      .page.diagnoses .patient-list .patient .diagnosis a {
-        margin-top: 5px;
-        color: #585f73; }
-      .page.diagnoses .patient-list .patient .diagnosis .result {
-        margin-left: 5px;
-        margin-top: 10px; }
-        .page.diagnoses .patient-list .patient .diagnosis .result span {
-          display: block;
-          margin-bottom: 5px; }
-        .page.diagnoses .patient-list .patient .diagnosis .result div {
-          display: inline-block; }
-        .page.diagnoses .patient-list .patient .diagnosis .result .titles span {
-          color: #63aeff; }
-        .page.diagnoses .patient-list .patient .diagnosis .result .values {
+
+#map {
+  width: 100%;
+  height: 650px; }
+
+.modal#createReport .ih-file, .modal#updateReport .ih-file {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; }
+  .modal#createReport .ih-file.ih-file-new button.ih-close, .modal#updateReport .ih-file.ih-file-new button.ih-close {
+    display: block; }
+  .modal#createReport .ih-file.ih-file-uploaded a, .modal#updateReport .ih-file.ih-file-uploaded a {
+    display: flex; }
+  .modal#createReport .ih-file.ih-file-uploaded button.ih-close, .modal#updateReport .ih-file.ih-file-uploaded button.ih-close {
+    display: block; }
+  .modal#createReport .ih-file .ih-choose-file input[type=file], .modal#updateReport .ih-file .ih-choose-file input[type=file] {
+    width: 100%;
+    position: absolute;
+    z-index: 2;
+    opacity: 0; }
+  .modal#createReport .ih-file .ih-choose-file input[type=text], .modal#createReport .ih-file .ih-choose-file span, .modal#updateReport .ih-file .ih-choose-file input[type=text], .modal#updateReport .ih-file .ih-choose-file span {
+    position: relative;
+    z-index: 1; }
+  .modal#createReport .ih-file a, .modal#updateReport .ih-file a {
+    display: none;
+    justify-content: center; }
+    .modal#createReport .ih-file a img, .modal#updateReport .ih-file a img {
+      width: 75%; }
+  .modal#createReport .ih-file button.ih-close, .modal#updateReport .ih-file button.ih-close {
+    display: none;
+    margin-left: 6px; }
+
+.modal#createReport .ih-add-file, .modal#updateReport .ih-add-file {
+  display: flex;
+  justify-content: flex-end; }
+
+.page.buildings .ih-sorting {
+  padding: 15px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end; }
+  .page.buildings .ih-sorting .ih-sorting-option {
+    margin-bottom: 15px; }
+  .page.buildings .ih-sorting .ih-add-building button {
+    float: right; }
+
+.page.buildings .ih-list-building {
+  padding: 15px;
+  background-color: white;
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap; }
+  .page.buildings .ih-list-building .ih-building-container {
+    margin-bottom: 15px;
+    padding-left: 7px;
+    padding-right: 7px; }
+    .page.buildings .ih-list-building .ih-building-container .ih-building {
+      padding: 15px;
+      border: 1px solid #6c757d;
+      /* Body with images
+          .ih-building-body {
+            display: flex;
+            align-items: center;
+      
+            .ih-building-image {
+              img {
+                width: 100%;
+              }
+            }
+      
+            .ih-building-info {
+              span {
+                display: block;
+              }
+            }
+          }
+          */ }
+      .page.buildings .ih-list-building .ih-building-container .ih-building .ih-status {
+        display: flex;
+        justify-content: space-between; }
+      .page.buildings .ih-list-building .ih-building-container .ih-building .ih-building-body {
+        margin: 15px 0; }
+        .page.buildings .ih-list-building .ih-building-container .ih-building .ih-building-body span {
+          display: block; }
+      .page.buildings .ih-list-building .ih-building-container .ih-building .ih-buttons {
+        display: flex;
+        justify-content: end; }
+        .page.buildings .ih-list-building .ih-building-container .ih-building .ih-buttons button {
           margin-left: 10px; }
-      .page.diagnoses .patient-list .patient .diagnosis span {
-        display: block;
-        margin-left: 3px; }
+
+.page.public-files .ih-files {
+  display: flex;
+  flex-wrap: wrap; }
+  .page.public-files .ih-files .ih-file-container {
+    margin-bottom: 15px;
+    padding-left: 7px;
+    padding-right: 7px; }

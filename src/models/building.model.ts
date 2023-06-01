@@ -18,14 +18,17 @@ const modelSchema: Record<keyof Omit<IBuilding, '_id'>, any> = {
     required: true,
   },
 
-  listEquipment: [String],
-
-  x: {
+  listEquipment: {
     type: String,
     required: true,
   },
 
-  y: {
+  lat: {
+    type: String,
+    required: true,
+  },
+
+  lng: {
     type: String,
     required: true,
   },

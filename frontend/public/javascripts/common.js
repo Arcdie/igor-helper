@@ -1,47 +1,29 @@
-const makeRequest = async ({
-  url, method, query, body, settings,
-}) => {
-  if (!url) {
-    alert('No url');
-    return false;
-  }
+const $alerts = $('.alerts');
 
-  if (!method) {
-    alert('No method');
-    return false;
-  }
+const validationClassName = 'is-invalid';
 
-  const objRequest = {
-    method,
-  };
-
-  if (method !== 'GET') {
-    objRequest.headers = {
-      'Content-Type': 'application/json',
-    };
-  }
-
-  if (body && Object.keys(body).length > 0) {
-    objRequest.body = JSON.stringify(body);
-  }
-
-  if (query && Object.keys(query).length > 0) {
-    url += '?';
-
-    Object.keys(query).forEach(key => {
-      url += `${key}=${query[key]}&`;
-    });
-
-    url = url.substring(0, url.length - 1);
-  }
-
-  if (settings && Object.keys(settings).length > 0) {
-    Object.keys(settings).forEach(key => {
-      objRequest[key] = settings[key];
-    });
-  }
-
-  const response = await fetch(url, objRequest);
-  const result = await response.json();
-  return result;
+const initTooltips = () => {
+  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  tooltipTriggerList.map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 };
+
+const addAlert = (type, message) => {
+  let className = 'success';
+
+  switch (type) {
+    case 'error': className = 'danger'; break;
+    case 'warn': className = 'warning'; break;
+  }
+
+  const id = new Date().getTime();
+  $alerts.prepend(`<div id="alert-${id}" class="alert alert-${className}" role="alert">
+    <div class="alert-content col-10">${message}</div>
+    <button class="btn-close col-2" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>`);
+
+  setTimeout(() => { $(`#alert-${id}`).remove(); }, 5000);
+};
+
+$(document).ready(() => {
+  initTooltips();
+});

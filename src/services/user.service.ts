@@ -1,6 +1,6 @@
 import { createToken } from '../libs/jwt';
 
-import { mailAccountCreated } from './mail.service';
+import * as mailService from './mail.service';
 import * as userRepository from '../repositories/user.repository';
 
 import { IUser } from '../interfaces/IUser';
@@ -50,10 +50,36 @@ export const registerUser = async (registrationDto: RegisterUserDto): Promise<IF
   });
 
   const authToken = createToken(result);
-  await mailAccountCreated(result.email);
+  await mailService.mailAccountCreated(result.email);
 
   return {
     status: true,
     result: authToken,
   };
 };
+
+export const forgotPassword = async (email: string): Promise<IFail | ISuccess<string>> => {
+  const user = await userRepository.findOneByEmail(email);
+
+  if (!user) {
+    return {
+      status: true,
+      result: email,
+    };
+
+    /*
+    return {
+      status: false,
+      message: EErrorCode.NO_RECORD_IN_DB,
+      responseType: EResponseType.notFoundResponse,
+    };
+    */
+  }
+
+  await mailService.mailForgotPassword(email, user.password);
+
+  return {
+    status: true,
+    result: email,
+  };
+}

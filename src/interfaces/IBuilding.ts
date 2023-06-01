@@ -3,9 +3,9 @@ import { HydratedDocument, Types } from 'mongoose';
 export interface IBuildingTemplate {
   name: string;
   regionName: string;
-  listEquipment: string[];
-  x: string;
-  y: string;
+  listEquipment: string;
+  lat: number;
+  lng: number;
   comment?: string;
   isReserved: boolean;
 }

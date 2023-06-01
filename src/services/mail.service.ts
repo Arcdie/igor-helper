@@ -8,8 +8,8 @@ export const mailAccountCreated = (to: string) => sendEmail({
   message: 'Аккаунт був успішно створений.',
 });
 
-export const mailSendPassword = (to: string, password: string) => sendEmail({
-  to, subject: 'Відновлення паролю',
+export const mailForgotPassword = (to: string, password: string) => sendEmail({
+  to, subject: 'Пароль для входу',
   message: `Пароль для входу в аккаунт: ${password}`,
 });
 
@@ -43,6 +43,17 @@ export const mailBuildingUpdatedStatus = (to: string, building: IBuilding) => se
 
 /* Reports */
 
+export const mailReportCreated = (to: string, building: IBuilding) => sendEmail({
+  to, subject: `Створено звіт для обʼєкту ${building.name}`,
+  message: `Створено звіт для обʼєкту ${building.name}`,
+});
 
+export const mailReportChanged = (to: string, building: IBuilding) => sendEmail({
+  to, subject: `Змінено звіт для обʼєкту ${building.name}`,
+  message: `Змінено звіт для обʼєкту ${building.name}`,
+});
 
-
+export const mailReportStatusChanged = (to: string, building: IBuilding) => sendEmail({
+  to, subject: `Змінено статус для обʼєкту ${building.name}`,
+  message: `Змінено статус для обʼєкту ${building.name}`,
+});

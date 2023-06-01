@@ -4,5 +4,6 @@
 @import './includes/default.scss';
 
 // Web
-@import './web/index.scss';
-// @import './web/patients.scss';
+@import './web/auth.scss';
+@import './web/buildings.scss';
+@import './web/publicFiles.scss';

@@ -1,0 +1,12 @@
+.page.public-files {
+  .ih-files {
+    display: flex;
+    flex-wrap: wrap;
+
+    .ih-file-container {
+      margin-bottom: 15px;
+      padding-left: 7px;
+      padding-right: 7px;
+    }
+  }
+}

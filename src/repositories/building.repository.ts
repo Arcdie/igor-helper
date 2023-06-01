@@ -20,13 +20,32 @@ export const updateBuilding = async (building: IBuilding, changes: Partial<IBuil
 export const findOneById = async (id: string | Types.ObjectId) =>
   unwrap(await Building.findById(id).exec());
 
-export const findManyByUser = async (user: IUser, isArchived: boolean = true) => {
+export const findManyByUser = async (
+  user: IUser,
+  options : { isArchived?: boolean } = {},
+  sortType: 'asc' | 'desc' = 'desc',
+) => {
   const searchOptions: Record<keyof Pick<IBuilding, 'userId' | 'archivedAt'>, any> = {
     userId: user._id,
     archivedAt: null,
   };
 
-  if (!isArchived) {
+  if (options.isArchived) {
+    searchOptions.archivedAt = { $ne: null };
+  }
+
+  const results = await Building.find(searchOptions).sort([['createdAt', sortType]]).exec();
+  return unwrapMany(results);
+}
+
+export const findAll = async (
+  options: { isArchived?: boolean } = {},
+) => {
+  const searchOptions: Record<keyof Pick<IBuilding, 'archivedAt'>, any> = {
+    archivedAt: null,
+  };
+
+  if (options.isArchived) {
     searchOptions.archivedAt = { $ne: null };
   }
 
@@ -35,4 +54,5 @@ export const findManyByUser = async (user: IUser, isArchived: boolean = true) =>
 }
 
 const unwrap = (entity: IBuildingModel | null) => entity?._doc;
-const unwrapMany = (entities: IBuildingModel[]) => entities.map(e => unwrap(e));
+const unwrapMany = (entities: IBuildingModel[]) => entities.map(e => e._doc);
+

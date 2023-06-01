@@ -1,0 +1,66 @@
+extends ../../app
+
+block variables
+  -
+    const pageTitle = `Об'єкти`;
+
+block content
+  include ../../modals/googleMap
+  include ../../modals/updateReport/updateReportAdmin
+  include ../../modals/updateBuilding/updateBuildingAdmin
+
+  .page.buildings
+    .container-fluid
+      include ../../includes/header
+
+      .ih-sorting
+        .col-3
+          .input-group.ih-sorting-option
+            span#client.input-group-text Клієнт
+            select#buildingClientSelect.form-select(aria-describedby='client')
+              option(value='', selected='') Усі
+              option(value='0') Валентин
+              option(value='1') Ігор
+              option(value='2') Тимофій
+              option(value='3') Антон
+              option(value='4') Захар
+
+          .input-group.ih-sorting-option
+            span#status.input-group-text Статус
+            select#buildingStatusSelect.form-select(aria-describedby='status')
+              option(value='', selected='') Усі
+              option(value='0') Створено
+              option(value='1') Зарезервовано
+              option(value='2') Обробка звіту
+              option(value='3') Затверджено
+              option(value='4') Відхилено
+
+          .input-group.ih-sorting-option
+            span#regionName.input-group-text Область
+            select#buildingRegionNameSelect.form-select(aria-describedby='regionName')
+              option(selected='') Усі
+              //- - for (region of siteSettings.regions) {
+              //-   option #{region}
+              //- - }
+
+          .input-group.ih-sorting-option
+            span#reportExists.input-group-text Наявність звіту
+            select#buildingreportExistsSelect.form-select(aria-describedby='reportExists')
+              option(value='', selected='') Усі
+              option(value='true') Є
+              option(value='false') Нема
+
+          .input-group
+            span#createdAt.input-group-text Дата створення
+            select#buildingCreatedAtSelect.form-select(aria-describedby='createdAt')
+              option(value='desc', selected='') Нові перші
+              option(value='asc') Старі перші
+
+      .ih-list-building
+
+block scripts
+  script(src='/libs/moment.min.js')
+  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBY_u1DoUqxJ5rqG-qngelD5b8rZVUfH1Y')
+
+  //- script(src='/javascripts/web/buildings/builings.common.js')
+  script(src='/javascripts/web/buildings/buildings.admin.js')

@@ -1,0 +1,28 @@
+.page.auth {
+  .form {
+    padding: 30px 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+
+    .ih-input {
+      margin-bottom: 20px;
+
+      .ih-label {
+        margin-bottom: 8px;
+      }
+    }
+
+    .ih-help {
+      margin-top: 20px;
+
+      img {
+        width: 20px;
+      }
+    }
+    
+    .ih-enterance {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+}

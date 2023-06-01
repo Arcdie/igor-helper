@@ -1,0 +1,38 @@
+#updateReport.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5.modal-title Редагувати звіт
+        button.btn-close(data-bs-dismiss='modal')
+
+      .modal-body
+        .mb-3
+          label.form-label Статус
+          select#updateReportStatus.form-select(aria-describedby='status')
+            option(value='0') В обробці
+            option(value='1') Затверджено
+            option(value='2') Відхилено
+
+        .mb-3
+          label.form-label Обладнання
+          input#updateReportListEquipment.form-control(type="text", disabled)
+
+        .mb-3
+          label.form-label Серійні номери
+          input#updateReportListSerialNumber.form-control(type="text", disabled)
+
+        .mb-3
+          label.form-label Коментар
+          textarea#updateReportComment.form-control(rows="3", disabled)
+
+        .mb-3
+          .ih-container-file#updateReportFiles
+            .ih-file
+              a(href="/images/glasses.png", alt="file", target="_blank", data-bs-toggle="tooltip" data-bs-placement="top" title="Проглянути")
+                img(src="/images/glasses.png", alt="glasses")
+
+              .ih-choose-file.input-group
+                input.form-control(type="text", disabled)
+
+      .modal-footer
+        button.btn.btn-primary#updateReportButton(tabindex="2") Редагувати

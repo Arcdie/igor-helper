@@ -24,18 +24,29 @@ export const findManyByUser = async (user: IUser) => {
     userId: user._id,
   };
 
-  const results = await Report.find(searchOptions).exec();
-  return unwrapMany(results);
+  return unwrapMany(await Report.find(searchOptions).exec());
 }
 
-export const findActiveByBuilding = async (building: IBuilding) =>
-  unwrap(await Report.findOne({
+export const findOneByBuilding = async (building: IBuilding, status?: EReportStatus) => {
+  const searchOptions: {
+    status?: EReportStatus,
+    buildingId: IReport['buildingId'],
+  } = {
     buildingId: building._id,
-    status: EReportStatus.InProcess,
-  }).exec());
+  };
+
+  if (status) {
+    searchOptions.status = status;
+  }
+
+  return unwrap(await Report.findOne(searchOptions).exec());
+};
+
+export const findManyByBuildings = (buildings: IBuilding[]) =>
+  Promise.all(buildings.map(building => findOneByBuilding(building)));
 
 export const findOneById = async (id: string | Types.ObjectId) =>
   unwrap(await Report.findById(id).exec());
 
 const unwrap = (entity: IReportModel | null) => entity?._doc;
-const unwrapMany = (entities: IReportModel[]) => entities.map(e => unwrap(e));
+const unwrapMany = (entities: IReportModel[]) => entities.map(e => e._doc);

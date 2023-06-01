@@ -1,0 +1,123 @@
+extends ../app
+
+block variables
+  -
+    const pageTitle = `Мої об'єкти`;
+
+block content
+  include ../modals/createReport
+  include ../modals/updateReport
+  include ../modals/createBuilding
+  include ../modals/updateBuilding
+
+  .page.buildings
+    .container-fluid
+      include ../includes/header
+
+      .ih-sorting
+        .col-3
+          .input-group.ih-sorting-option
+            span#status.input-group-text Статус
+            select.form-select(aria-describedby='status')
+              option(selected='') Усі
+              option(value='created') Створено
+              option(value='reserved') Зарезервовано
+              option(value='inProcess') Обробка звіту
+              option(value='approved') Затверджено
+              option(value='rejeted') Відхилено
+
+          .input-group
+            span#createdAt.input-group-text Дата створення
+            select.form-select(aria-describedby='createdAt')
+              option(selected='', value='asc') За зростянням
+              option(value='desc') За спаданням
+        
+        .col-3.ih-add-building
+          button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#createBuilding") + Додати об'єкт
+
+      .ih-list-building
+        .ih-building-container.col-4
+          .ih-building
+            .ih-status
+              span 23.05.23 10:20
+              span Зарезервовано
+
+            .ih-building-body
+              span SomeName (Вінницька обл.)
+              span Якийсь дужееееее довгиииииий комментар
+
+            .ih-buttons
+              button.btn.btn-secondary(data-bs-toggle="modal" data-bs-target="#updateBuilding") Редагувати
+              button.btn.btn-secondary(data-bs-toggle="modal" data-bs-target="#createReport") Додати звіт
+
+        .ih-building-container.col-4
+          .ih-building
+            .ih-status
+              span 23.05.23 10:20
+              span Зарезервовано
+
+            .ih-building-body
+              span SomeName (Вінницька обл.)
+              span Якийсь дужееееее довгиииииий комментар
+
+            .ih-buttons
+              button.btn.btn-secondary(data-bs-toggle="modal" data-bs-target="#updateBuilding") Редагувати
+              button.btn.btn-secondary(data-bs-toggle="modal" data-bs-target="#createReport") Додати звіт
+
+        .ih-building-container.col-4
+          .ih-building
+            .ih-status
+              span 23.05.23 10:20
+              span Зарезервовано
+
+            .ih-building-body
+              span SomeName (Вінницька обл.)
+              span Якийсь дужееееее довгиииииий комментар
+
+            .ih-buttons
+              button.btn.btn-secondary(data-bs-toggle="modal" data-bs-target="#updateBuilding") Редагувати
+              button.btn.btn-secondary(data-bs-toggle="modal" data-bs-target="#createReport") Додати звіт
+
+        .ih-building-container.col-4
+          .ih-building
+            .ih-status
+              span 23.05.23 10:20
+              span Зарезервовано
+
+            .ih-building-body
+              span SomeName (Вінницька обл.)
+              span Якийсь дужееееее довгиииииий комментар
+
+            .ih-buttons
+              button.btn.btn-secondary(data-bs-toggle="modal" data-bs-target="#updateBuilding") Редагувати
+              button.btn.btn-secondary(data-bs-toggle="modal" data-bs-target="#createReport") Додати звіт
+
+        .ih-building-container.col-4
+          .ih-building
+            .ih-status
+              span 23.05.23 10:20
+              span Зарезервовано
+
+            .ih-building-body              
+              span SomeName (Вінницька обл.)
+              span Якийсь дужееееее довгиииииий комментар
+
+            .ih-buttons
+              button.btn.btn-secondary(data-bs-toggle="modal" data-bs-target="#updateBuilding") Редагувати
+              button.btn.btn-secondary(data-bs-toggle="modal" data-bs-target="#createReport") Додати звіт
+
+        .ih-building-container.col-4
+          .ih-building
+            .ih-status
+              span 23.05.23 10:20
+              span Зарезервовано
+
+            .ih-building-body
+              span SomeName (Вінницька обл.)
+              span Якийсь дужееееее довгиииииий комментар
+
+            .ih-buttons
+              button.btn.btn-secondary(data-bs-toggle="modal" data-bs-target="#updateBuilding") Редагувати
+              button.btn.btn-secondary(data-bs-toggle="modal" data-bs-target="#createReport") Додати звіт
+
+block scripts

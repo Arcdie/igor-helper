@@ -1,0 +1,41 @@
+#createBuilding.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5.modal-title Додати об'єкт
+        button.btn-close(data-bs-dismiss='modal')
+
+      .modal-body
+        .mb-3
+          label.form-label(for='createBuildingName') Назва
+          input#createBuildingName.form-control(type="text", tabindex="1")
+          .invalid-feedback Поле має бути заповнено
+
+        .mb-3
+          label.form-label(for='createBuildingRegionName') Регіон
+          input#createBuildingRegionName.form-control(list='createBuildingRegionNameOptions', placeholder='Введіть для пошуку...', tabindex="2")
+          datalist#createBuildingRegionNameOptions
+            //- for (region of siteSettings.regions) {
+            //-   option(value= region)
+            //- - }
+          .invalid-feedback Поле має бути заповнено
+
+        .mb-3
+          label.form-label Координати
+          .input-group
+            input.form-control#createBuildingX(type='text' placeholder='x', tabindex="3")
+            input.form-control#createBuildingY(type='text' placeholder='y', tabindex="4")
+            button.btn.btn-secondary#createBuildingGetMap Вказати на мапі
+            .invalid-feedback Поля мають бути заповнені
+
+        .mb-3
+          label.form-label(for='createBuildingListEquipment') Обладнання
+          input#createBuildingListEquipment.form-control(type="text", placeholder="Введіть обладнання через кому", tabindex="5")
+          .invalid-feedback Поле має бути заповнено
+
+        .mb-3
+          label.form-label(for='createBuildingComment') Коментар
+          textarea#createBuildingComment.form-control(rows="3", , tabindex="6")
+
+      .modal-footer
+        button.btn.btn-primary#createBuildingButton(tabindex="7") Додати

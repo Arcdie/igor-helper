@@ -1,9 +1,9 @@
 import { IReport } from '../../interfaces/IReport';
 
-export const updateReportDto = ['equipment', 'serialNumber', 'comment'];
+export const updateReportDto = ['listEquipment', 'listSerialNumber', 'comment'];
 
 export class UpdateReportDto {
-  equipment: IReport['equipment'];
-  serialNumber: IReport['serialNumber'];
+  listEquipment?: IReport['listEquipment'];
+  listSerialNumber?: IReport['listSerialNumber'];
   comment?: IReport['comment'];
 }
