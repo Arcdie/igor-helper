@@ -7,7 +7,7 @@
     "start": "ts-node ./src/app",
     "build": "rimraf dist && tsc -p tsconfig.json",
     "dev": "ts-node-dev --respawn ./src/app",
-    "production": "pm2 start ./src/app.js",
+    "production": "pm2 start ./dist/app.js",
     "build-css": "node-sass --include-path scss frontend/public/scss/styles.scss   frontend/public/stylesheets/styles.css",
     "watcher": "nodemon -e scss -x \"npm run build-css\""
   },

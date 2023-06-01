@@ -9,7 +9,7 @@ export default function () {
   mongoose.set('strictQuery', false);
 
   return mongoose.connect(
-    getClusterConnectLink(),
+    getCommonConnectLink(),
     config.mongodb.options,
   );
 }

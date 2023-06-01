@@ -42,7 +42,7 @@ $(document).ready(async () => {
           $e.removeClass(validationClassName)
         }
       });
-      
+
       // todo: check
       // name ? $name.removeClass(validationClassName) : $name.addClass(validationClassName);
       // companyName ? $companyName.removeClass(validationClassName) : $companyName.addClass(validationClassName);
@@ -63,7 +63,7 @@ $(document).ready(async () => {
         $password.addClass(validationClassName);
       }
 
-      if (isValid) {
+      if (!isValid) {
         return false;
       }
 

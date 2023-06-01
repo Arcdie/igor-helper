@@ -5,7 +5,7 @@ import { setAuthCookies } from '../libs/express';
 import { checkBody, clearObjectByTargetKeys } from '../libs/helper';
 import { badRequestResponse, dynamicResponse, successResponse } from '../libs/expressResponses';
 
-import * as userService from '../services/user.service';
+import * as authService from '../services/auth.service';
 
 import { loginUserDto, LoginUserDto } from './dto/loginUser.dto';
 import { registerUserDto, RegisterUserDto } from './dto/registerUser.dto';
@@ -19,7 +19,7 @@ export const loginUser = async (req: Request, res: Response) => {
     return badRequestResponse(res, `No ${errors.join(', ')}`);
   }
 
-  const result = await userService.loginUser(body);
+  const result = await authService.loginUser(body);
 
   if (!result.status) {
     return dynamicResponse(result.responseType)(res, result.message);
@@ -46,7 +46,7 @@ export const registerUser = async (req: Request, res: Response) => {
     return badRequestResponse(res, 'Password should contain 6 or more characters');
   }
 
-  const result = await userService.registerUser(body);
+  const result = await authService.registerUser(body);
 
   if (!result.status) {
     return dynamicResponse(result.responseType)(res, result.message);
@@ -63,7 +63,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
     return badRequestResponse(res, 'No or invalid email');
   }
 
-  const result = await userService.forgotPassword(body.email);
+  const result = await authService.forgotPassword(body.email);
 
   if (!result.status) {
     return dynamicResponse(result.responseType)(res, result.message);
