@@ -19,6 +19,7 @@ import {
 import { isAdmin } from '../services/user.service';
 import * as buildingService from '../services/building.service';
 
+import * as userRepository from '../repositories/user.repository';
 import * as reportRepository from '../repositories/report.repository';
 import * as buildingRepository from '../repositories/building.repository';
 
@@ -34,6 +35,7 @@ import { EReportStatus } from '../interfaces/EReportStatus';
 import { GetBuildingsDto } from './dto/getBuildings.dto';
 import { createBuildingDto, CreateBuildingDto } from './dto/createBuilding.dto';
 import { updateBuildingDto, UpdateBuildingDto } from './dto/updateBuilding.dto';
+import { not } from 'cheerio/lib/api/traversing';
 
 export const getBuildingById = async (req: Request, res: Response) => {
   const user = req.user;
@@ -64,22 +66,55 @@ export const getBuildingById = async (req: Request, res: Response) => {
 };
 
 export const getBuildings = async (req: { user: IUser, query: GetBuildingsDto }, res: Response) => {
-  const user = req.user;
-  let { status, sortType } = req.query;
+  const { user, query } = req;
 
   if (!user) {
     return unauthorizedResponse(res, EErrorCode.INVALID_AUTH_TOKEN);
   }
 
-  if (!sortType || !['asc', 'desc'].includes(sortType)) {
+  if (query.status && !Object.values(EStatus).includes(+query.status)) {
+    return badRequestResponse(res, 'Invalid status');
+  }
+
+  if (query.isReport && !Boolean(query.isReport)) {
+    return badRequestResponse(res, 'Invalid isReport');
+  }
+
+  if (query.regionName && !regionsUA.includes(query.regionName)) {
+    return badRequestResponse(res, 'Invalid regionName');
+  }
+
+  if (!query.sortType || !['asc', 'desc'].includes(query.sortType)) {
     return badRequestResponse(res, 'Invalid sortType');
   }
 
-  if (status && !Object.values(EStatus).includes(+status)) {
-    return badRequestResponse(res, 'Invalid status');
+  let buildings: IBuilding[] = [];
+
+  if (!isAdmin(user)) {
+    buildings = await buildingRepository.findManyBy({ user }, query.sortType);
+  } else {
+    const searchOptions: {
+      user?: IUser;
+      regionName?: typeof regionsUA[number];
+    } = {};
+
+    if (query.clientEmail) {
+      const client = await userRepository.findOneByEmail(query.clientEmail);
+
+      if (!client) {
+        return notFoundResponse(res, EErrorCode.NO_RECORD_IN_DB);
+      }
+
+      searchOptions.user = client;
+    }
+
+    if (query.regionName) {
+      searchOptions.regionName = query.regionName;
+    }
+
+    buildings = await buildingRepository.findManyBy(searchOptions, query.sortType);
   }
   
-  const buildings = await buildingRepository.findManyByUser(user, {}, sortType);
   const reports = await reportRepository.findManyByBuildings(buildings);  
 
   let results = buildings.map(b => ({
@@ -87,14 +122,18 @@ export const getBuildings = async (req: { user: IUser, query: GetBuildingsDto },
     report: reports.find(r => r?.buildingId.toString() === b._id.toString()),
   }));
 
-  if (status) {
-    switch (+status) {
+  if (query.status) {
+    switch (+query.status) {
       case EStatus.Created: results = results.filter(b => !b.isReserved); break;
       case EStatus.Reserved: results = results.filter(b => b.isReserved); break;
       case EStatus.InProcess: results = results.filter(b => b.report?.status === EReportStatus.InProcess); break;
       case EStatus.Approved: results = results.filter(b => b.report?.status === EReportStatus.Approved); break;
       case EStatus.Rejeted: results = results.filter(b => b.report?.status === EReportStatus.Rejeted); break;
     }
+  }
+
+  if (Boolean(query.isReport)) {
+    results = query.isReport ? results.filter(b => b.report) : results.filter(b => !b.report);
   }
 
   return successResponse(res, {

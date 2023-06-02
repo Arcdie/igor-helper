@@ -40,7 +40,7 @@ export const ALLOWED_FIELDS_TO_CHANGE_FOR_ADMIN = ['regionName', 'listEquipment'
 
 export const createBuilding = async (buildingDto: CreateBuildingDto, user: IUser): Promise<IFail | ISuccess<IBuilding>> => {
   let isReserved = true;
-  const existBuildings = await buildingRepository.findAll();
+  const existBuildings = await buildingRepository.findManyBy({});
 
   if (existBuildings.length) {
     const isDistanceLessThanAllowed = existBuildings.some(

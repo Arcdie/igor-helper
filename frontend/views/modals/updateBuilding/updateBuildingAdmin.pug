@@ -7,33 +7,36 @@
 
       .modal-body
         .mb-3
+          label.form-label Статус
+          select#updateBuildingIsReserved.form-select(aria-describedby='isReserved', tabindex="1")
+            option(value='false') Створено
+            option(value='true') Зарезервовано
+
+        .mb-3
           label.form-label(for='updateBuildingName') Назва
-          input#updateBuildingName.form-control(type="text", tabindex="1")
+          input#updateBuildingName.form-control(type="text", tabindex="2")
 
         .mb-3
           label.form-label(for='updateBuildingRegionName') Регіон
-          input#updateBuildingRegionName.form-control(list='updateBuildingRegionNameOptions', placeholder='Введіть для пошуку...', tabindex="2")
-          datalist#updateBuildingRegionName
-            //- for (region of siteSettings.regions) {
-            //-   option(value= region)
-            //- - }
+          input#updateBuildingRegionName.form-control(list='updateBuildingRegionNameDatalist', placeholder='Введіть для пошуку...', tabindex="3")
+          datalist#updateBuildingRegionNameDatalist
           .invalid-feedback Поле має бути заповнено
 
         .mb-3
           label.form-label Координати
           .input-group
-            input.form-control#updateBuildingX(type='text' placeholder='x', tabindex="3")
-            input.form-control#updateBuildingY(type='text' placeholder='y', tabindex="4")
+            input.form-control#updateBuildingX(type='text' placeholder='x', tabindex="4")
+            input.form-control#updateBuildingY(type='text' placeholder='y', tabindex="5")
             button.btn.btn-secondary#updateBuildingGetMap Вказати на мапі
             .invalid-feedback Поля мають бути заповнені
 
         .mb-3
           label.form-label(for='updateBuildingListEquipment') Обладнання
-          input#updateBuildingListEquipment.form-control(type="text", placeholder="Введіть обладнання через кому", tabindex="2")
+          input#updateBuildingListEquipment.form-control(type="text", placeholder="Введіть обладнання через кому", tabindex="6")
 
         .mb-3
           label.form-label(for='updateBuildingComment') Коментар
           textarea#updateBuildingComment.form-control(rows="3", disabled)
 
       .modal-footer
-        button.btn.btn-primary#updateBuildingButton(tabindex="3") Редагувати
+        button.btn.btn-primary#updateBuildingButton(tabindex="7") Редагувати

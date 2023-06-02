@@ -13,11 +13,8 @@
 
         .mb-3
           label.form-label(for='createBuildingRegionName') Регіон
-          input#createBuildingRegionName.form-control(list='createBuildingRegionNameOptions', placeholder='Введіть для пошуку...', tabindex="2")
-          datalist#createBuildingRegionNameOptions
-            //- for (region of siteSettings.regions) {
-            //-   option(value= region)
-            //- - }
+          input#createBuildingRegionName.form-control(list='createBuildingRegionNameDatalist', placeholder='Введіть для пошуку...', tabindex="2")
+          datalist#createBuildingRegionNameDatalist
           .invalid-feedback Поле має бути заповнено
 
         .mb-3

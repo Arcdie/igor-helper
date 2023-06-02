@@ -52,6 +52,8 @@ $(document).ready(async () => {
     return false;
   }
 
+  loadRegionDatalist('#createBuildingRegionNameDatalist');
+
   $('#buildingStatusSelect')
     .on('change', async function () {
       searchSettings.status = this.value;
@@ -96,9 +98,9 @@ $(document).ready(async () => {
       const $comment = $('#updateBuildingComment');
       const $listEquipment = $('#updateBuildingListEquipment');
 
-      $name.val(building.name);
-      $listEquipment.val(building.listEquipment);
-      building.comment && $comment.val(building.comment);
+      $name.val(building.name || '');
+      $comment.val(building.comment || '');
+      $listEquipment.val(building.listEquipment || '');
 
       modalUpdateBuilding.show();
     })
@@ -126,9 +128,9 @@ $(document).ready(async () => {
       const $listEquipment = $('#updateReportListEquipment');
       const $listSerialNumber = $('#updateReportListSerialNumber');
 
-      $listEquipment.val(report.listEquipment);
-      $listSerialNumber.val(report.listSerialNumber);
-      report.comment && $comment.val(report.comment);
+      $comment.val(report.comment || '');
+      $listEquipment.val(report.listEquipment || '');
+      $listSerialNumber.val(report.listSerialNumber || '');
 
       if (reportFiles.length) {
         const $updateReportFiles = $('#updateReportFiles');
@@ -155,7 +157,13 @@ $(document).ready(async () => {
   // modal#createBuilding
   $('#createBuilding')
     .on('click', 'button#createBuildingGetMap', function () {
-      const myLatlng = { lat: 49.5122845, lng: 31.1236211 };
+      const $x = $('#createBuildingX');
+      const $y = $('#createBuildingY');
+
+      const lat = parseFloat($x.val());
+      const lng = parseFloat($y.val());
+
+      const myLatlng = (lat & lng) ? { lat, lng } : { lat: 49.5122845, lng: 31.1236211 };
 
       const map = new google.maps.Map(document.getElementById('map'), {
         center: myLatlng,
@@ -171,8 +179,8 @@ $(document).ready(async () => {
       infoWindow.open(map);
 
       window.setXAndY = (x, y) => {
-        $('#createBuildingX').val(x);
-        $('#createBuildingY').val(y);
+        $x.val(x);
+        $y.val(y);
 
         modalGoogleMap.hide();
         modalCreateBuilding.show();
@@ -475,6 +483,11 @@ $(document).ready(async () => {
       await loadBuildings();
     });
 });
+
+const loadRegionDatalist = (containerId) => {
+  const appendStr = settings.regions.reduce((a, v) => a += `<option>${v}</option>`, '');
+  $(containerId).html(appendStr);
+};
 
 const loadBuildings = async () => {
   $listBuilding.empty();

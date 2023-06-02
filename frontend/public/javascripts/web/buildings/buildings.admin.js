@@ -14,10 +14,14 @@ const URL_UPDATE_BUILDING = '/api/buildings/:buildingId';
 const URL_ARCHIVE_BUILDING = '/api/buildings/:buildingId/archive';
 const URL_GET_REPORT_BY_BUILDING = '/api/buildings/:buildingId/report';
 const URL_GET_REPORT_FILES = '/api/reports/:reportId/files';
+const URL_UPDATE_REPORT_STATUS = '/api/reports/:reportId/status';
 
 /* Variables */
 const searchSettings = {
   status: '',
+  isReport: '',
+  regionName: '',
+  clientEmail: '',
   sortType: 'desc',
 };
 
@@ -38,20 +42,51 @@ const modalUpdateBuilding = new bootstrap.Modal($modalUpdateBuilding[0], {});
 $(document).ready(async () => {
   disableLink();
 
-  const users = await getUsers();
-  console.log('users', users);
-
-
   await loadBuildings();
+  await loadClientDatalist();
   settings = await getSettings();
 
   if (!settings) {
     return false;
   }
 
+  loadRegionDatalist('#buildingRegionNameDatalist');
+  loadRegionDatalist('#updateBuildingRegionNameDatalist');
+
+  $('#buildingClient')
+    .on('input', async function () {
+      const value = this.value;
+
+      const isMatch = $('#buildingClientDatalist option').some(function () {
+        return this.value === value;
+      });
+
+      if (isMatch || val === '') {
+        searchSettings.clientEmail = this.value;
+        await loadBuildings();
+      }
+    });
+
+  $('#buildingRegionName')
+    .on('input', async function () {
+      const value = this.value;
+      const isMatch = settings.regions.some(r => r === value);
+
+      if (isMatch || value === '') {
+        searchSettings.regionName = this.value;
+        await loadBuildings();
+      }
+    });
+
   $('#buildingStatusSelect')
     .on('change', async function () {
-      searchSettings.status = this.value;
+      searchSettings.status = this.value ? parseInt(this.value, 10) : '';
+      await loadBuildings();
+    });
+
+  $('#buildingReportExistsSelect')
+    .on('change', async function () {
+      searchSettings.isReport = this.value;
       await loadBuildings();
     });
 
@@ -93,15 +128,24 @@ $(document).ready(async () => {
       const $y = $('#updateBuildingY');
       const $name = $('#updateBuildingName');
       const $comment = $('#updateBuildingComment');
+      const $isReserved = $('#updateBuildingIsReserved');
       const $regionName = $('#updateBuildingRegionName');
       const $listEquipment = $('#updateBuildingListEquipment');
+
+      $isReserved
+        .find('option')
+        .attr('selected', false);
+      
+      $isReserved
+        .find(`option[value="${building.isReserved ? 'true' : 'false'}"]`)
+        .attr('selected', true);
 
       $x.val(building.lat);
       $y.val(building.lng);
       $name.val(building.name);
       $regionName.val(building.regionName);
       $listEquipment.val(building.listEquipment);
-      building.comment && $comment.val(building.comment);
+      $comment.val(building.comment || '');
 
       modalUpdateBuilding.show();
     })
@@ -118,13 +162,22 @@ $(document).ready(async () => {
 
       const reportFiles = await getReportFiles(report._id);
 
+      const $status = $('#updateReportStatus');
       const $comment = $('#updateReportComment');
       const $listEquipment = $('#updateReportListEquipment');
       const $listSerialNumber = $('#updateReportListSerialNumber');
 
+      $status
+        .find('option')
+        .attr('selected', false);
+
+      $status
+        .find(`option[value="${report.status}"`)
+        .attr('selected', true);
+
+      $comment.val(report.comment || '');
       $listEquipment.val(report.listEquipment);
       $listSerialNumber.val(report.listSerialNumber);
-      report.comment && $comment.val(report.comment);
 
       if (reportFiles.length) {
         const $updateReportFiles = $('#updateReportFiles');
@@ -151,7 +204,13 @@ $(document).ready(async () => {
   // modal#updateBuilding
   $('#updateBuilding')
     .on('click', 'button#updateBuildingGetMap', function () {
-      const myLatlng = { lat: 49.5122845, lng: 31.1236211 };
+      const $x = $('#updateBuildingX');
+      const $y = $('#updateBuildingY');
+
+      const lat = parseFloat($x.val());
+      const lng = parseFloat($y.val());
+
+      const myLatlng = (lat & lng) ? {lat, lng } : { lat: 49.5122845, lng: 31.1236211 };
 
       const map = new google.maps.Map(document.getElementById('map'), {
         center: myLatlng,
@@ -167,8 +226,8 @@ $(document).ready(async () => {
       infoWindow.open(map);
 
       window.setXAndY = (x, y) => {
-        $('#updateBuildingX').val(x);
-        $('#updateBuildingY').val(y);
+        $x.val(x);
+        $y.val(y);
 
         modalGoogleMap.hide();
         modalUpdateBuilding.show();
@@ -200,6 +259,7 @@ $(document).ready(async () => {
       const $y = $('#updateBuildingY');
       const $name = $('#updateBuildingName');
       const $regionName = $('#updateBuildingRegionName');
+      const $isReserved = $('#updateBuildingIsReserved');
       const $listEquipment = $('#updateBuildingListEquipment');
 
       let isValid = true;
@@ -226,9 +286,10 @@ $(document).ready(async () => {
       const name = $name.val();
       const regionName = $regionName.val();
       const listEquipment = $listEquipment.val();
+      const isReserved = $isReserved.val() === 'true';
 
       const result = await updateBuilding(targetBuildingId, {
-        lat, lng, name, comment, regionName, listEquipment
+        lat, lng, name, regionName, listEquipment, isReserved,
       });
 
       if (result) {
@@ -248,12 +309,16 @@ $(document).ready(async () => {
         return false;
       }
 
-      const resultUpdate = await updateReport(report._id, {
-        // status: 
-      });
+      const $status = $('#updateReportStatus');
 
-      if (!resultUpdate) {
-        return false;
+      const status = parseInt($status.val(), 10);
+
+      if (status !== report.status) {
+        const resultUpdate = await updateReportStatus(report._id, status);
+
+        if (!resultUpdate) {
+          return false;
+        }
       }
 
       addAlert('success', `Звіт успішно змінено`);
@@ -263,10 +328,37 @@ $(document).ready(async () => {
     });
 });
 
+const loadClientDatalist = async () => {
+  const clients = await getClients();
+  const appendStr = clients.reduce((a, v) => a += `<option value="${v.email}">${v.name}</option>`, '');
+  $('#buildingClientDatalist').html(appendStr);
+};
+
+const loadRegionDatalist = (containerId) => {
+  const appendStr = settings.regions.reduce((a, v) => a += `<option>${v}</option>`, '');
+  $(containerId).html(appendStr);
+};
+
 const loadBuildings = async () => {
   $listBuilding.empty();
 
-  const buildings = await getBuildings(searchSettings);
+  const validSearchSettings = {};
+
+  Object.keys(searchSettings).forEach(key => {
+    if (searchSettings[key] !== '') {
+      validSearchSettings[key] = searchSettings[key];
+    }
+  });
+
+  if (validSearchSettings.isReport) {
+    validSearchSettings.isReport = validSearchSettings.isReport === 'true';
+  }
+
+  if (validSearchSettings.status) {
+    validSearchSettings.status = parseInt(validSearchSettings.status, 10);
+  }
+
+  const buildings = await getBuildings(validSearchSettings);
   buildings && buildings.length && renderBuildings(buildings);
 };
 
@@ -343,6 +435,11 @@ const getBuilding = (buildingId) => {
 const updateBuilding = (buildingId, body) => {
   const url = URL_UPDATE_BUILDING.replace(':buildingId', buildingId);
   return sendPutRequest(url, body);
+};
+
+const updateReportStatus = (reportId, status) => {
+  const url = URL_UPDATE_REPORT_STATUS.replace(':reportId', reportId);
+  return sendPutRequest(url, { status });
 };
 
 const archiveBuilding = (buildingId) => {
