@@ -197,7 +197,7 @@ $(document).ready(async () => {
         const coordinates = mapsMouseEvent.latLng.toJSON();
 
         infoWindow.setContent(`<button
-          style="background-color: white; border: none;"
+          style="background-color: #0086ff7d; border: none; padding: 3px;"
           onclick="setXAndY(${coordinates.lat}, ${coordinates.lng})"
         >Підтвердити</button>`);
 

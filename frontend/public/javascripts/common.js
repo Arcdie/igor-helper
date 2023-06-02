@@ -26,4 +26,9 @@ const addAlert = (type, message) => {
 
 $(document).ready(() => {
   initTooltips();
+
+  $('.modal button.btn-close')
+    .on('click', function () {
+      $(this).closest('.modal').find('.ih-input').val('');
+    });
 });

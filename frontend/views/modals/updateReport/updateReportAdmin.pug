@@ -8,22 +8,22 @@
       .modal-body
         .mb-3
           label.form-label Статус
-          select#updateReportStatus.form-select(aria-describedby='status')
+          select#updateReportStatus.form-select.ih-input(aria-describedby='status', tabindex="1")
             option(value='0') В обробці
             option(value='1') Затверджено
             option(value='2') Відхилено
 
         .mb-3
           label.form-label Обладнання
-          input#updateReportListEquipment.form-control(type="text", disabled)
+          input#updateReportListEquipment.form-control.ih-input(type="text", disabled)
 
         .mb-3
           label.form-label Серійні номери
-          input#updateReportListSerialNumber.form-control(type="text", disabled)
+          input#updateReportListSerialNumber.form-control.ih-input(type="text", disabled)
 
         .mb-3
           label.form-label Коментар
-          textarea#updateReportComment.form-control(rows="3", disabled)
+          textarea#updateReportComment.form-control.ih-input(rows="3", disabled)
 
         .mb-3
           .ih-container-file#updateReportFiles

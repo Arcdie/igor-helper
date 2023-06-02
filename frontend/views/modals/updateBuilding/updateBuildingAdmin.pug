@@ -14,29 +14,29 @@
 
         .mb-3
           label.form-label(for='updateBuildingName') Назва
-          input#updateBuildingName.form-control(type="text", tabindex="2")
+          input#updateBuildingName.form-control.ih-input(type="text", tabindex="2")
 
         .mb-3
           label.form-label(for='updateBuildingRegionName') Регіон
-          input#updateBuildingRegionName.form-control(list='updateBuildingRegionNameDatalist', placeholder='Введіть для пошуку...', tabindex="3")
+          input#updateBuildingRegionName.form-control.ih-input(list='updateBuildingRegionNameDatalist', placeholder='Введіть для пошуку...', tabindex="3")
           datalist#updateBuildingRegionNameDatalist
           .invalid-feedback Поле має бути заповнено
 
         .mb-3
           label.form-label Координати
           .input-group
-            input.form-control#updateBuildingX(type='text' placeholder='x', tabindex="4")
-            input.form-control#updateBuildingY(type='text' placeholder='y', tabindex="5")
+            input.form-control.ih-input#updateBuildingX(type='text' placeholder='x', tabindex="4")
+            input.form-control.ih-input#updateBuildingY(type='text' placeholder='y', tabindex="5")
             button.btn.btn-secondary#updateBuildingGetMap Вказати на мапі
             .invalid-feedback Поля мають бути заповнені
 
         .mb-3
           label.form-label(for='updateBuildingListEquipment') Обладнання
-          input#updateBuildingListEquipment.form-control(type="text", placeholder="Введіть обладнання через кому", tabindex="6")
+          input#updateBuildingListEquipment.form-control.ih-input(type="text", placeholder="Введіть обладнання через кому", tabindex="6")
 
         .mb-3
           label.form-label(for='updateBuildingComment') Коментар
-          textarea#updateBuildingComment.form-control(rows="3", disabled)
+          textarea#updateBuildingComment.form-control.ih-input(rows="3", disabled)
 
       .modal-footer
         button.btn.btn-primary#updateBuildingButton(tabindex="7") Редагувати

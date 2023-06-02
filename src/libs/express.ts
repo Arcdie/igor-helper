@@ -67,3 +67,7 @@ export const setAuthCookies = (res: Response, token: string) => {
   // todo: increase lifetime
   res.cookie('Authorization', token, { httpOnly: true });
 };
+
+export const removeAuthCookies = (res: Response) => {
+  res.clearCookie('Authorization');
+};

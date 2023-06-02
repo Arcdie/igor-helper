@@ -1,7 +1,7 @@
 import validator from 'validator';
 import { Request, Response } from 'express';
 
-import { setAuthCookies } from '../libs/express';
+import { setAuthCookies, removeAuthCookies } from '../libs/express';
 import { checkBody, clearObjectByTargetKeys } from '../libs/helper';
 import { badRequestResponse, dynamicResponse, successResponse } from '../libs/expressResponses';
 
@@ -70,4 +70,9 @@ export const forgotPassword = async (req: Request, res: Response) => {
   }
 
   return successResponse(res, result);
+};
+
+export const logoutUser = async (req: Request, res: Response) => {
+  removeAuthCookies(res);
+  return res.redirect('/');
 };
