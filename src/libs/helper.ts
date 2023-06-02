@@ -50,8 +50,9 @@ export const getQueue = <T>(arr: T[], limiter: number) => {
 };
 
 export const clearObjectByTargetKeys = <B>(requiredFields: string[], body: B) => {
+  const clearRequiredFields = requiredFields.map(f => f.replace('?', ''));
   const decomposed = Object.entries(body as any)
-    .filter(e => requiredFields.includes(e[0]));
+    .filter(e => clearRequiredFields.includes(e[0]));
   return Object.fromEntries(decomposed) as B;
 };
 
