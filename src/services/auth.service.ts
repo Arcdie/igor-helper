@@ -3,7 +3,6 @@ import { createToken } from '../libs/jwt';
 import * as mailService from './mail.service';
 import * as userRepository from '../repositories/user.repository';
 
-import { IUser } from '../interfaces/IUser';
 import { ERole } from '../interfaces/ERole';
 import { EErrorCode } from '../interfaces/EErrorCode';
 import { IFail, ISuccess } from '../interfaces/IResult';
@@ -64,14 +63,6 @@ export const forgotPassword = async (email: string): Promise<IFail | ISuccess<st
       status: true,
       result: email,
     };
-
-    /*
-    return {
-      status: false,
-      message: EErrorCode.NO_RECORD_IN_DB,
-      responseType: EResponseType.notFoundResponse,
-    };
-    */
   }
 
   await mailService.mailForgotPassword(email, user.password);

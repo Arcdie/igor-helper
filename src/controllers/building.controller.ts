@@ -24,7 +24,6 @@ import * as reportRepository from '../repositories/report.repository';
 import * as buildingRepository from '../repositories/building.repository';
 
 import { IUser } from '../interfaces/IUser';
-import { IReport } from '../interfaces/IReport';
 import { IBuilding } from '../interfaces/IBuilding';
 
 import { EStatus } from '../interfaces/EStatus';
@@ -35,7 +34,6 @@ import { EReportStatus } from '../interfaces/EReportStatus';
 import { GetBuildingsDto } from './dto/getBuildings.dto';
 import { createBuildingDto, CreateBuildingDto } from './dto/createBuilding.dto';
 import { updateBuildingDto, UpdateBuildingDto } from './dto/updateBuilding.dto';
-import { not } from 'cheerio/lib/api/traversing';
 
 export const getBuildingById = async (req: Request, res: Response) => {
   const user = req.user;
@@ -73,19 +71,19 @@ export const getBuildings = async (req: { user: IUser, query: GetBuildingsDto },
   }
 
   if (query.status && !Object.values(EStatus).includes(+query.status)) {
-    return badRequestResponse(res, 'Invalid status');
+    return badRequestResponse(res, EErrorCode.INVALID_STATUS);
   }
 
   if (query.isReport && !Boolean(query.isReport)) {
-    return badRequestResponse(res, 'Invalid isReport');
+    return badRequestResponse(res, EErrorCode.INVALID_IS_REPORT);
   }
 
   if (query.regionName && !regionsUA.includes(query.regionName)) {
-    return badRequestResponse(res, 'Invalid regionName');
+    return badRequestResponse(res, EErrorCode.INVALID_REGION);
   }
 
   if (!query.sortType || !['asc', 'desc'].includes(query.sortType)) {
-    return badRequestResponse(res, 'Invalid sortType');
+    return badRequestResponse(res, EErrorCode.INVALID_SORT_TYPE);
   }
 
   let buildings: IBuilding[] = [];
@@ -153,11 +151,11 @@ export const createBuilding = async (req: Request, res: Response) => {
   const errors = checkBody(createBuildingDto, req.body);
 
   if (errors.length) {
-    return badRequestResponse(res, `No ${errors.join(', ')}`);
+    return badRequestResponse(res, `Немає ${errors.join(', ')} в запиті`);
   }
 
   if (!regionsUA.includes(body.regionName)) {
-    return badRequestResponse(res, 'Invalid region');
+    return badRequestResponse(res, EErrorCode.INVALID_REGION);
   }
 
   const result = await buildingService.createBuilding(body, user);
@@ -187,7 +185,7 @@ export const updateBuilding = async (req: Request, res: Response) => {
   }
 
   if (body.regionName && !regionsUA.includes(body.regionName)) {
-    return badRequestResponse(res, 'Invalid region');
+    return badRequestResponse(res, EErrorCode.INVALID_REGION);
   }
 
   const building = await buildingRepository.findOneById(buildingId);

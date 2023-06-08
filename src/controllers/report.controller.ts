@@ -96,7 +96,7 @@ export const createReport = async (req: Request, res: Response) => {
   const errors = checkBody(createReportDto, req.body);
 
   if (errors.length) {
-    return badRequestResponse(res, `No ${errors.join(', ')}`);
+    return badRequestResponse(res, `Немає ${errors.join(', ')} в запиті`);
   }
 
   const building = await buildingRepository.findOneById(buildingId);

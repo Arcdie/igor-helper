@@ -1,7 +1,7 @@
 /* global
 functions, addAlert, sendGetRequest, sendPostRequest, sendPutRequest,
 objects, moment,
-vars, validationClassName,
+vars, validationClassName, regionCoordinatesMapper
 */
 
 /* Constants */
@@ -159,15 +159,22 @@ $(document).ready(async () => {
     .on('click', 'button#createBuildingGetMap', function () {
       const $x = $('#createBuildingX');
       const $y = $('#createBuildingY');
+      const $regionName = $('#createBuildingRegionName');
 
       const lat = parseFloat($x.val());
       const lng = parseFloat($y.val());
+      const regionName = $regionName.val();
 
-      const myLatlng = (lat & lng) ? { lat, lng } : { lat: 49.5122845, lng: 31.1236211 };
+      const regionCoordinates = regionCoordinatesMapper.get(regionName);
+
+      const defaultCoordinates = regionCoordinates ?
+        regionCoordinates : regionCoordinatesMapper.get('Київська');
+
+      const myLatlng = (lat & lng) ? { lat, lng } : defaultCoordinates;
 
       const map = new google.maps.Map(document.getElementById('map'), {
         center: myLatlng,
-        zoom: 7
+        zoom: regionCoordinates ? 9 : 7,
       });
 
       // Create the initial InfoWindow.
@@ -195,6 +202,7 @@ $(document).ready(async () => {
         });
 
         const coordinates = mapsMouseEvent.latLng.toJSON();
+        // console.log({ lat: coordinates.lat, lng: coordinates.lng });
 
         infoWindow.setContent(`<button
           style="background-color: #0086ff7d; border: none; padding: 3px;"
@@ -248,6 +256,8 @@ $(document).ready(async () => {
       if (result) {
         addAlert('success', `Об'єкт успішно додано`);
         $modalCreateBuilding.find('button.btn-close').click();
+
+        // todo: notification if is !isReserved
 
         await loadBuildings();
       }
@@ -500,13 +510,23 @@ const renderBuildings = (buildings) => {
   let appendStr = '';
 
   buildings.forEach(building => {
+    let enStatus = building.isReserved ? 'Reserved' : 'Created';
     let status = building.isReserved ? 'Зарезервовано' : 'Створено';
 
     if (building.report) {
       switch (building.report.status) {
-        case 0: status = 'Обробка звіту'; break;
-        case 1: status = 'Затверджено'; break;
-        case 2: status = 'Відхилено'; break;
+        case 0:
+          status = 'Обробка звіту';
+          enStatus = 'InProcess'
+          break;
+        case 1:
+          status = 'Затверджено';
+          enStatus = 'Approved';
+          break;
+        case 2:
+          status = 'Відхилено';
+          enStatus = 'Rejected';
+          break;
       }
     }
 
@@ -527,7 +547,7 @@ const renderBuildings = (buildings) => {
     }
 
     appendStr += `<div class="ih-building-container col-4" data-buildingid="${building._id}">
-      <div class="ih-building">
+      <div class="ih-building ih-${enStatus}">
         <div class="ih-status">
           <span class="col-5">${validDate}</span>
           <span class="col-5 text-end">${status}</span>
