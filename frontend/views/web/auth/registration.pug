@@ -47,7 +47,7 @@ block content
 								span Телефон:
 							.col-12
 								.input-group
-									input#phoneNumber.form-control(type="text", tabindex="4")
+									input#phoneNumber.form-control(type="tel", tabindex="4")
 									.invalid-feedback Поле має бути заповнено
 
 						.ih-input
@@ -91,4 +91,5 @@ block content
 
 block scripts
 	script(src='/libs/validator.min.js')
+	script(src='/libs/maskinput.min.js')
 	script(src='/javascripts/web/auth/registration.js')

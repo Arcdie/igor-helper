@@ -1,12 +1,11 @@
 /* global
-functions, addAlert, sendGetRequest, sendPostRequest, sendPutRequest,
+functions, addAlert, getSettings, sendGetRequest, sendPostRequest, sendPutRequest,
 objects, moment,
 vars, validationClassName, regionCoordinatesMapper
 */
 
 /* Constants */
 
-const URL_GET_SETTINGS = '/api/settings';
 const URL_GET_BUILDINGS = '/api/buildings';
 const URL_GET_BUILDING = '/api/buildings/:buildingId';
 const URL_CREATE_BUILDING = '/api/buildings';
@@ -202,7 +201,6 @@ $(document).ready(async () => {
         });
 
         const coordinates = mapsMouseEvent.latLng.toJSON();
-        // console.log({ lat: coordinates.lat, lng: coordinates.lng });
 
         infoWindow.setContent(`<button
           style="background-color: #0086ff7d; border: none; padding: 3px;"
@@ -236,8 +234,6 @@ $(document).ready(async () => {
         }
       });
 
-      // todo: check is valid regionName
-
       if (!isValid) {
         return false;
       }
@@ -254,11 +250,13 @@ $(document).ready(async () => {
       });
 
       if (result) {
-        addAlert('success', `Об'єкт успішно додано`);
+        if (result.isReserved) {
+          addAlert('success', `Об'єкт успішно додано`);
+        } else {
+          addAlert('warning', `Об'єкт пересікається з вже існуючим. Зверніться до менеджера`);
+        }
+
         $modalCreateBuilding.find('button.btn-close').click();
-
-        // todo: notification if is !isReserved
-
         await loadBuildings();
       }
     });
@@ -376,13 +374,21 @@ $(document).ready(async () => {
       }
 
       const files = [];
+      const filesInfo = [];
       const comment = $comment.val();
       const listEquipment = $listEquipment.val();
       const listSerialNumber = $listSerialNumber.val();
 
       $files.each((i, e) => {
         const file = e.files[0];
-        file && files.push(file);
+        const fileId = $(e).attr('id');
+
+        if (file) {
+          files.push(file);
+          filesInfo.push({ fileId: file.name, isNew: true });
+        } else if (fileId) {
+          filesInfo.push({ fileId: fileId.split('file-')[1], isNew: false });
+        }
       });
 
       const resultSave = await createReport(targetBuildingId, {
@@ -397,7 +403,14 @@ $(document).ready(async () => {
 
       if (files.length) {
         const data = new FormData();
-        files.forEach(f => data.append('files', f));
+
+        if (filesInfo.length) {
+          data.append('filesInfo', JSON.stringify(filesInfo));
+        }
+
+        if (files.length) {
+          files.forEach(f => data.append('files', f));
+        }
 
         const resultUpload = await updateFilesInReport(resultSave._id, data);
 
@@ -578,8 +591,6 @@ const disableLink = () => {
     }
   });
 };
-
-const getSettings = () => sendGetRequest(URL_GET_SETTINGS);
 
 const createBuilding = (body) => sendPostRequest(URL_CREATE_BUILDING, body);
 const getReports = () => sendGetRequest(URL_GET_BUILDINGS, searchSettings);

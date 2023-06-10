@@ -64,8 +64,10 @@ const init = () => {
 export default init;
 
 export const setAuthCookies = (res: Response, token: string) => {
-  // todo: increase lifetime
-  res.cookie('Authorization', token, { httpOnly: true });
+  res.cookie('Authorization', token, {
+    httpOnly: true,
+    maxAge: config.app.cookieLifetime,
+  });
 };
 
 export const removeAuthCookies = (res: Response) => {

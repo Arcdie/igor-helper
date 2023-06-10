@@ -15,7 +15,7 @@ const $name = $('input#name');
 const $email = $('input#email');
 const $password = $('input#password');
 const $companyName = $('input#companyName');
-const $phoneNumber = $('input#phoneNumber'); // todo: add mask
+const $phoneNumber = $('input#phoneNumber');
 const $providerName = $('input#providerName');
 
 const $register = $('button#register');
@@ -42,12 +42,6 @@ $(document).ready(async () => {
           $e.removeClass(validationClassName)
         }
       });
-
-      // todo: check
-      // name ? $name.removeClass(validationClassName) : $name.addClass(validationClassName);
-      // companyName ? $companyName.removeClass(validationClassName) : $companyName.addClass(validationClassName);
-      // phoneNumber ? $phoneNumber.removeClass(validationClassName) : $phoneNumber.addClass(validationClassName);
-      // providerName ? $providerName.removeClass(validationClassName) : $providerName.addClass(validationClassName);
 
       if (email && validator.isEmail(email)) {
         $email.removeClass(validationClassName)

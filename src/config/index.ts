@@ -5,6 +5,7 @@ const config = {
     url: process.env.APP_URL,
     environment: process.env.NODE_ENV,
     port: Number(process.env.APP_PORT),
+    cookieLifetime: 30 * 24 * 60 * 60 * 1000,
   },
 
   mongodb: {

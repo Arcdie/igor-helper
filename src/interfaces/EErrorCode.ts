@@ -3,9 +3,10 @@ export enum EErrorCode {
   INVALID_EMAIL = 'Передано невалідний email',
   INVALID_PASSWORD = 'Пароль має містити хоча б 6 символів',
   INVALID_IS_REPORT = 'Передано невалідний параметр наявності звіту',
-  INVALID_REGION = 'Передано невалідна назву регіону',
+  INVALID_REGION = 'Передана невалідна назву регіону',
   INVALID_SORT_TYPE = 'Передано невалідний тип сортування',
 
+  FILE_TOO_LARGE = 'Файл не може перевищувати 50мб',
   NO_USER_WITH_THIS_CREDENTIALS = 'В системі немає користувача з таким email та паролем',
   EXIST_USER = 'Користувач з таким email вже зареєстрований',
   INVALID_AUTH_TOKEN = 'Немає або невалідний токен авторизації',

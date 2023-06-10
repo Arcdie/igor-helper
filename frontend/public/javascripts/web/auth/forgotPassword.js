@@ -1,5 +1,5 @@
 /* global
-functions, addAlert, sendPostRequest, isValidEmail,
+functions, addAlert, getUnix, getSettings, sendPostRequest, isValidEmail,
 objects, validator
 */
 
@@ -7,7 +7,7 @@ objects, validator
 
 const URL_RESTORE_PASSWORD = '/auth/forgotPassword';
 
-/* Variables *
+/* Variables */
 
 /* JQuery */
 
@@ -16,9 +16,26 @@ const $email = $('input#email');
 const $restore = $('button#restore');
 
 $(document).ready(async () => {
+  const settings = await getSettings();
+
+  if (!settings) {
+    return false;
+  }
+
   $restore
     .on('click', async () => {
+      const nowUnix = getUnix();
       const email = $email.val();
+      let lastRestoreTime = localStorage.getItem('lastTimeRestorePasswordMail');
+
+      if (lastRestoreTime) {
+        lastRestoreTime = parseInt(lastRestoreTime, 10);
+
+        if (nowUnix - lastRestoreTime < settings.constants.intervalBetweenRestorePasswordMail) {
+          addAlert('warning', 'Ви досягли ліміту на відправку листа с паролем. Спробуйте ще раз через 10 хвилин.');
+          return false;
+        }
+      }
 
       const validationClassName = 'is-invalid';
 
@@ -31,6 +48,6 @@ $(document).ready(async () => {
       }
 
       addAlert('sucess', 'Лист з паролем був відправлений на вашу пошту');
-      // todo: prevent spam sents
+      localStorage.setItem('lastTimeRestorePasswordMail', nowUnix);
     });
 });

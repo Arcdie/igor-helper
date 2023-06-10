@@ -17,6 +17,8 @@ import {
   unauthorizedResponse,
 } from '../libs/expressResponses';
 
+import constants from '../config/constants';
+
 import { isAdmin } from '../services/user.service';
 import * as reportService from '../services/report.service';
 
@@ -211,8 +213,6 @@ export const updateFilesInReport = async (req: Request, res: Response) => {
   const { filesInfo }: { filesInfo: string } = req.body;
   const { reportId }: { reportId?: string } = req.params;
 
-  // todo: fileSize limit
-
   if (!user || !user._id) {
     return unauthorizedResponse(res, EErrorCode.INVALID_AUTH_TOKEN);
   }
@@ -223,6 +223,10 @@ export const updateFilesInReport = async (req: Request, res: Response) => {
 
   if (filesInfo && !validator.isJSON(filesInfo)) {
     return badRequestResponse(res, EErrorCode.INVALID_BODY);
+  }
+
+  if (files.some(f => f.size > constants.fileSizeLimit)) {
+    return badRequestResponse(res, EErrorCode.FILE_TOO_LARGE);
   }
 
   const report = await reportRepository.findOneById(reportId);

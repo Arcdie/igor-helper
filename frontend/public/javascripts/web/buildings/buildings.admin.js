@@ -1,5 +1,5 @@
 /* global
-functions, addAlert, sendGetRequest, sendPostRequest, sendPutRequest,
+functions, addAlert, getSettings, sendGetRequest, sendPostRequest, sendPutRequest,
 objects, moment,
 vars, validationClassName, regionCoordinatesMapper
 */
@@ -7,7 +7,6 @@ vars, validationClassName, regionCoordinatesMapper
 /* Constants */
 
 const URL_GET_CLIENTS = '/api/users/clients';
-const URL_GET_SETTINGS = '/api/settings';
 const URL_GET_BUILDINGS = '/api/buildings';
 const URL_GET_BUILDING = '/api/buildings/:buildingId';
 const URL_UPDATE_BUILDING = '/api/buildings/:buildingId';
@@ -282,8 +281,6 @@ $(document).ready(async () => {
         }
       });
 
-      // todo: check is valid regionName
-
       if (!isValid) {
         return false;
       }
@@ -438,8 +435,6 @@ const disableLink = () => {
 };
 
 const getClients = () => sendGetRequest(URL_GET_CLIENTS);
-
-const getSettings = () => sendGetRequest(URL_GET_SETTINGS);
 
 const getReports = () => sendGetRequest(URL_GET_BUILDINGS, searchSettings);
 const getBuildings = (searchSettings) => sendGetRequest(URL_GET_BUILDINGS, searchSettings);

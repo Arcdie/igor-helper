@@ -1,28 +1,8 @@
+const URL_GET_SETTINGS = '/api/settings';
+
 const $alerts = $('.alerts');
 
 const validationClassName = 'is-invalid';
-
-const initTooltips = () => {
-  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-  tooltipTriggerList.map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
-};
-
-const addAlert = (type, message) => {
-  let className = 'success';
-
-  switch (type) {
-    case 'error': className = 'danger'; break;
-    case 'warn': className = 'warning'; break;
-  }
-
-  const id = new Date().getTime();
-  $alerts.prepend(`<div id="alert-${id}" class="alert alert-${className}" role="alert">
-    <div class="alert-content col-10">${message}</div>
-    <button class="btn-close col-2" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>`);
-
-  setTimeout(() => { $(`#alert-${id}`).remove(); }, 5000);
-};
 
 const regionCoordinatesMapper = new Map([
   ['АР Крим', { lat: 45.2644427137645, lng: 34.21174777355826 }],
@@ -52,6 +32,31 @@ const regionCoordinatesMapper = new Map([
   ['Чернігівська', { lat: 51.48904160434725, lng: 31.294950845757427 }],
 ]);
 
+const initTooltips = () => {
+  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  tooltipTriggerList.map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+};
+
+const addAlert = (type, message) => {
+  let className = 'success';
+
+  switch (type) {
+    case 'error': className = 'danger'; break;
+    case 'warn': className = 'warning'; break;
+    case 'warning': className = 'warning'; break;
+  }
+
+  const id = new Date().getTime();
+  $alerts.prepend(`<div id="alert-${id}" class="alert alert-${className}" role="alert">
+    <div class="alert-content col-10">${message}</div>
+    <button class="btn-close col-2" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>`);
+
+  setTimeout(() => { $(`#alert-${id}`).remove(); }, 5000);
+};
+
+const getSettings = () => sendGetRequest(URL_GET_SETTINGS);
+
 $(document).ready(() => {
   initTooltips();
 
@@ -59,4 +64,8 @@ $(document).ready(() => {
     .on('click', function () {
       $(this).closest('.modal').find('.ih-input').val('');
     });
+
+  if (typeof $.mask !== 'undefined') {
+    $('input[type="tel"]').mask('+38(999) 999-99-99');
+  }
 });
