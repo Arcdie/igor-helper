@@ -1,5 +1,5 @@
 /* global
-functions, addAlert, getSettings, sendGetRequest, sendPostRequest, sendPutRequest,
+functions, addAlert, getSettings, buttonDisabler, sendGetRequest, sendPostRequest, sendPutRequest,
 objects, moment,
 vars, validationClassName, regionCoordinatesMapper
 */
@@ -213,7 +213,9 @@ $(document).ready(async () => {
       modalCreateBuilding.hide();
       modalGoogleMap.show();
     })
-    .on('click', '#createBuildingButton', async () => {
+    .on('click', '#createBuildingButton', async function () {
+      const enable = buttonDisabler($(this));
+
       const $x = $('#createBuildingX');
       const $y = $('#createBuildingY');
       const $name = $('#createBuildingName');
@@ -235,6 +237,7 @@ $(document).ready(async () => {
       });
 
       if (!isValid) {
+        enable();
         return false;
       }
 
@@ -248,6 +251,8 @@ $(document).ready(async () => {
       const result = await createBuilding({
         lat, lng, name, comment, regionName, listEquipment,
       });
+
+      enable();
 
       if (result) {
         if (result.isReserved) {
@@ -263,7 +268,9 @@ $(document).ready(async () => {
 
   // modal#updateBuilding
   $('#updateBuildingButton')
-    .on('click', async () => {
+    .on('click', async function () {
+      const enable = buttonDisabler($(this));
+
       const $name = $('#updateBuildingName');
       const $comment = $('#updateBuildingComment');
       const $listEquipment = $('#updateBuildingListEquipment');
@@ -282,6 +289,7 @@ $(document).ready(async () => {
       });
 
       if (!isValid) {
+        enable();
         return false;
       }
 
@@ -290,6 +298,7 @@ $(document).ready(async () => {
       const listEquipment = $listEquipment.val();
 
       const result = await updateBuilding(targetBuildingId, { name, comment, listEquipment });
+      enable();
 
       if (result) {
         addAlert('success', `Об'єкт успішно змінено`);
@@ -350,7 +359,9 @@ $(document).ready(async () => {
     });
 
   $('#createReportButton')
-    .on('click', async () => {
+    .on('click', async function () {
+      const enable = buttonDisabler($(this));
+
       const $comment = $('#createReportComment');
       const $listEquipment = $('#createReportListEquipment');
       const $listSerialNumber = $('#createReportListSerialNumber');
@@ -370,6 +381,7 @@ $(document).ready(async () => {
       });
 
       if (!isValid) {
+        enable();
         return false;
       }
 
@@ -396,6 +408,8 @@ $(document).ready(async () => {
         listEquipment,
         listSerialNumber,
       });
+      
+      enable();
 
       if (!resultSave) {
         return false;
@@ -429,7 +443,9 @@ $(document).ready(async () => {
 
   // modal#updateReport
   $('#updateReportButton')
-    .on('click', async () => {
+    .on('click', async function () {
+      const enable = buttonDisabler($(this));
+
       const $comment = $('#updateReportComment');
       const $listEquipment = $('#updateReportListEquipment');
       const $listSerialNumber = $('#updateReportListSerialNumber');
@@ -449,12 +465,14 @@ $(document).ready(async () => {
       });
 
       if (!isValid) {
+        enable();
         return false;
       }
 
       const report = await getReportByBuildingId(targetBuildingId);
 
       if (!report) {
+        enable();
         return false;
       }
 
@@ -477,6 +495,7 @@ $(document).ready(async () => {
       });
 
       if (files.some(f => f.size > settings.constants.fileSizeLimit)) {
+        enable();
         addAlert('warning', settings.errors['FILE_TOO_LARGE']);
         return false;
       }
@@ -486,6 +505,8 @@ $(document).ready(async () => {
         listEquipment,
         listSerialNumber,
       });
+
+      enable();
 
       if (!resultUpdate) {
         return false;

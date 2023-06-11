@@ -1,6 +1,14 @@
 const getUnix = targetDate =>
   parseInt((targetDate ? new Date(targetDate) : new Date()).getTime() / 1000, 10);
 
+const buttonDisabler = ($elem) => {
+  $elem.attr('disabled', true);
+
+  return () => {
+    $elem.attr('disabled', false);
+  };
+};
+
 const makeRequest = async ({
   url, method, query, body, settings,
 }) => {

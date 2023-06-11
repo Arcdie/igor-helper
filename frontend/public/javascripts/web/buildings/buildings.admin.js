@@ -1,5 +1,5 @@
 /* global
-functions, addAlert, getSettings, sendGetRequest, sendPostRequest, sendPutRequest,
+functions, addAlert, getSettings, buttonDisabler, sendGetRequest, sendPostRequest, sendPutRequest,
 objects, moment,
 vars, validationClassName, regionCoordinatesMapper
 */
@@ -260,7 +260,9 @@ $(document).ready(async () => {
       modalUpdateBuilding.hide();
       modalGoogleMap.show();
     })
-    .on('click', '#updateBuildingButton', async () => {
+    .on('click', '#updateBuildingButton', async function () {
+      const enable = buttonDisabler($(this));
+
       const $x = $('#updateBuildingX');
       const $y = $('#updateBuildingY');
       const $name = $('#updateBuildingName');
@@ -282,6 +284,7 @@ $(document).ready(async () => {
       });
 
       if (!isValid) {
+        enable();
         return false;
       }
 
@@ -296,6 +299,8 @@ $(document).ready(async () => {
         lat, lng, name, regionName, listEquipment, isReserved,
       });
 
+      enable();
+
       if (result) {
         addAlert('success', `Об'єкт успішно змінено`);
         $modalUpdateBuilding.find('button.btn-close').click();
@@ -306,10 +311,13 @@ $(document).ready(async () => {
 
   // modal#updateReport
   $('#updateReportButton')
-    .on('click', async () => {
+    .on('click', async function () {
+      const enable = buttonDisabler($(this));
+
       const report = await getReportByBuildingId(targetBuildingId);
 
       if (!report) {
+        enable();
         return false;
       }
 
@@ -319,11 +327,14 @@ $(document).ready(async () => {
 
       if (status !== report.status) {
         const resultUpdate = await updateReportStatus(report._id, status);
+        enable();
 
         if (!resultUpdate) {
           return false;
         }
       }
+
+      enable();
 
       addAlert('success', `Звіт успішно змінено`);
       $modalUpdateReport.find('button.btn-close').click();
