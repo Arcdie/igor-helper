@@ -1,3 +1,4 @@
+import * as s3Lib from '../libs/aws/s3';
 import { clearObjectByTargetKeys } from '../libs/helper';
 
 import { isAdmin } from './user.service';
@@ -23,7 +24,7 @@ import { CreateReportDto } from '../controllers/dto/createReport.dto';
 import { UpdateReportDto } from '../controllers/dto/updateReport.dto';
 
 export const ALLOWED_FIELDS_TO_CHANGE_FOR_ADMIN = ['status'];
-export const ALLOWED_FIELDS_TO_CHANGE_FOR_USER = ['equipment', 'serialNumber'];
+export const ALLOWED_FIELDS_TO_CHANGE_FOR_USER = ['equipment', 'serialNumber', 'comment'];
 
 export const createReport = async (
   reportDto: CreateReportDto,
@@ -147,7 +148,8 @@ export const changeReportStatus = async (newStatus: EReportStatus, report: IRepo
   };
 };
 
-export const getReportFiles = async (report: IReport, user: IUser): Promise<IFail | ISuccess<IFile[]>> => {
+type getReportFilesReturnType = IFile & { link: string };
+export const getReportFiles = async (report: IReport, user: IUser): Promise<IFail | ISuccess<getReportFilesReturnType[]>> => {
   if (!isAdmin(user) && report.userId.toString() !== user._id.toString()) {
     return {
       status: false,
@@ -170,7 +172,10 @@ export const getReportFiles = async (report: IReport, user: IUser): Promise<IFai
 
   return {
     status: true,
-    result: files,
+    result: files.map(f => ({
+      ...f,
+      link: `${s3Lib.getBucketLink()}/${f.name}.${f.extentionType}`,
+    })),
   }
 };
 

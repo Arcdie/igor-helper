@@ -1,4 +1,4 @@
-const config = {
+export default {
   app: {
     host: 'localhost',
     name: 'igor-helper',
@@ -19,6 +19,13 @@ const config = {
     },
   },
 
+  aws: {
+    region: 'eu-central-1',
+    bucket: 'igor-helper-files',
+    accessKey: String(process.env.AWS_ACCESS_KEY),
+    secretAccessKey: String(process.env.AWS_SECRET_ACCESS_KEY),
+  },
+
   sendgrid: {
     from: String(process.env.SENDGRID_FROM),
     apikey: String(process.env.SENDGRID_APIKEY),
@@ -32,5 +39,3 @@ const config = {
     secret: String(process.env.JWT_SECRET),
   },
 };
-
-export default config;

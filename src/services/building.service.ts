@@ -1,3 +1,5 @@
+import constants from '../config/constants';
+
 import {
   getRadians,
   clearObjectByTargetKeys,
@@ -33,10 +35,8 @@ const getDistanceBetweenPoints = (p1: Point, p2: Point) => {
   return R * c; // returns the distance in meter
 };
 
-const MIN_DISTANCE_BETWEEN_BUILDINGS = 50; // meters
-
 export const ALLOWED_FIELDS_TO_CHANGE_FOR_USER = ['name', 'comment', 'listEquipment'];
-export const ALLOWED_FIELDS_TO_CHANGE_FOR_ADMIN = ['regionName', 'listEquipment', 'lat', 'lng', 'isReserved', ...ALLOWED_FIELDS_TO_CHANGE_FOR_USER];
+export const ALLOWED_FIELDS_TO_CHANGE_FOR_ADMIN = ['name', 'regionName', 'listEquipment', 'lat', 'lng', 'isReserved'];
 
 export const createBuilding = async (buildingDto: CreateBuildingDto, user: IUser): Promise<IFail | ISuccess<IBuilding>> => {
   let isReserved = true;
@@ -44,7 +44,7 @@ export const createBuilding = async (buildingDto: CreateBuildingDto, user: IUser
 
   if (existBuildings.length) {
     const isDistanceLessThanAllowed = existBuildings.some(
-      b => getDistanceBetweenPoints(buildingDto, b) < MIN_DISTANCE_BETWEEN_BUILDINGS
+      b => getDistanceBetweenPoints(buildingDto, b) < constants.minDistanceBetweenBuildings
     );
 
     if (isDistanceLessThanAllowed) {

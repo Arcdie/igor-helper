@@ -140,7 +140,7 @@ $(document).ready(async () => {
           const $cloneFile = $file.clone();
 
           $cloneFile.addClass('ih-file-uploaded');
-          $cloneFile.find('a').attr('href', `/files/${file.name}.${file.extentionType}`);
+          $cloneFile.find('a').attr('href', file.link);
           $cloneFile.find('input[type="text"]').val(file.originalName);
           $cloneFile.find('input[type="file"]').attr('id', `file-${file._id}`);
 
@@ -401,6 +401,11 @@ $(document).ready(async () => {
         return false;
       }
 
+      addAlert('success', `Звіт успішно створено`);
+      $modalCreateReport.find('button.btn-close').click();
+
+      await loadBuildings();
+
       if (files.length) {
         const data = new FormData();
 
@@ -416,13 +421,10 @@ $(document).ready(async () => {
 
         if (!resultUpload) {
           addAlert('warn', 'Не вдалося завантажити файли');
+        } else {
+          addAlert('success', 'Файли успішно завантажено');
         }
       }
-
-      addAlert('success', `Звіт успішно створено`);
-      $modalCreateReport.find('button.btn-close').click();
-
-      await loadBuildings();
     });
 
   // modal#updateReport
@@ -474,6 +476,11 @@ $(document).ready(async () => {
         }
       });
 
+      if (files.some(f => f.size > settings.constants.fileSizeLimit)) {
+        addAlert('warning', settings.errors['FILE_TOO_LARGE']);
+        return false;
+      }
+
       const resultUpdate = await updateReport(report._id, {
         comment,
         listEquipment,
@@ -483,6 +490,11 @@ $(document).ready(async () => {
       if (!resultUpdate) {
         return false;
       }
+
+      addAlert('success', `Звіт успішно змінено`);
+      $modalUpdateReport.find('button.btn-close').click();
+
+      await loadBuildings();
 
       const data = new FormData();
 
@@ -498,12 +510,9 @@ $(document).ready(async () => {
 
       if (!resultUpload) {
         addAlert('warn', 'Не вдалося оновити файли');
+      } else {
+        addAlert('success', 'Файли оновлено');
       }
-
-      addAlert('success', `Звіт успішно змінено`);
-      $modalUpdateReport.find('button.btn-close').click();
-
-      await loadBuildings();
     });
 });
 

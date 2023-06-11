@@ -187,7 +187,7 @@ $(document).ready(async () => {
           const $cloneFile = $file.clone();
 
           $cloneFile.addClass('ih-file-uploaded');
-          $cloneFile.find('a').attr('href', `/files/${file.name}.${file.extentionType}`);
+          $cloneFile.find('a').attr('href', file.link);
           $cloneFile.find('input[type="text"]').val(file.originalName);
           $cloneFile.find('input[type="file"]').attr('id', `file-${file._id}`);
 

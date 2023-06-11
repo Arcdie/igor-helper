@@ -1,6 +1,5 @@
-import path from 'path';
-
-import * as fsLib from '../libs/fs';
+// import * as fsLib from '../libs/fs';
+import * as s3Lib from '../libs/aws/s3';
 import { toUTF8, getUnix, getRandomString } from '../libs/helper';
 
 import * as fileRepository from '../repositories/file.repository';
@@ -8,7 +7,7 @@ import * as fileRepository from '../repositories/file.repository';
 import { IFile } from '../interfaces/IFile';
 import { IUser } from '../interfaces/IUser';
 
-const folderForFileUploads = path.resolve(__dirname, '../../frontend/public/files');
+// const folderForFileUploads = path.resolve(__dirname, '../../frontend/public/files');
 
 export const createUniqueName = () => `${getRandomString(8)}-${getUnix()}`;
 export const getExtensionType = (name: string) => name.split('.').at(-1) || 'undefined';
@@ -17,7 +16,8 @@ export const uploadFile = async (file: Express.Multer.File, user: IUser) => {
   const fileName = createUniqueName();
   const extention = getExtensionType(file.originalname);
 
-  await fsLib.writeFile(folderForFileUploads, `${fileName}.${extention}`, file.buffer);
+  await s3Lib.upload(file, fileName, extention);
+  // await fsLib.writeFile(folderForFileUploads, `${fileName}.${extention}`, file.buffer);
 
   return fileRepository.createFile({
     userId: user._id,
@@ -29,7 +29,8 @@ export const uploadFile = async (file: Express.Multer.File, user: IUser) => {
 };
 
 export const removeFile = async (file: IFile) => {
-  await fsLib.removeFile(folderForFileUploads, `${file.name}.${file.extentionType}`);
+  // await fsLib.removeFile(folderForFileUploads, `${file.name}.${file.extentionType}`);
+  await s3Lib.deleteMany([`${file.name}.${file.extentionType}`]);
   await fileRepository.removeFile(file);
 };
 

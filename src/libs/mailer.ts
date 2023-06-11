@@ -16,8 +16,6 @@ const generateMailBody = (mailBody: IMailBody) => ({
 });
 
 export const sendEmail = async (mailBody: IMailBody) => {
-  return;
-
   const fullMessage = generateMailBody(mailBody);
 
   try {

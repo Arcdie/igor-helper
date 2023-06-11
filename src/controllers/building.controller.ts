@@ -123,7 +123,7 @@ export const getBuildings = async (req: { user: IUser, query: GetBuildingsDto },
   if (query.status) {
     switch (+query.status) {
       case EStatus.Created: results = results.filter(b => !b.isReserved); break;
-      case EStatus.Reserved: results = results.filter(b => b.isReserved); break;
+      case EStatus.Reserved: results = results.filter(b => b.isReserved && !b.report); break;
       case EStatus.InProcess: results = results.filter(b => b.report?.status === EReportStatus.InProcess); break;
       case EStatus.Approved: results = results.filter(b => b.report?.status === EReportStatus.Approved); break;
       case EStatus.Rejeted: results = results.filter(b => b.report?.status === EReportStatus.Rejeted); break;
