@@ -4,6 +4,8 @@
 @import './includes/default.scss';
 
 // Web
-@import './web/auth.scss';
-@import './web/buildings.scss';
-@import './web/publicFiles.scss';
+@import './web/desktop/auth.scss';
+@import './web/desktop/buildings.scss';
+@import './web/desktop/publicFiles.scss';
+
+@import './web/mobile/buildings.scss';
