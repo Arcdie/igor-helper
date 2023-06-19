@@ -15,6 +15,10 @@
 
 // `xl` applies to large devices (desktops, less than 1200px)
 @media (max-width: 1199.98px) {
+  .page {
+    padding: 10px 0;
+  }
+
   .ih-sorting {
     display: flex;
     flex-direction: column;
