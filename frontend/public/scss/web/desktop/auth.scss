@@ -15,14 +15,34 @@
     .ih-help {
       margin-top: 20px;
 
-      img {
-        width: 20px;
+      .ih-contact {
+        display: flex;
+        justify-content: space-around;
+
+        .ih-contact-img {
+          display: flex;
+          justify-content: center;
+
+          img {
+            width: 20px;
+          }
+        }
       }
     }
     
     .ih-enterance {
       margin-top: 20px;
       margin-bottom: 20px;
+
+      .ih-enterance-actions {
+        display: flex;
+        justify-content: space-between;
+
+        div {
+          display: flex;
+          align-items: center;
+        }
+      }
     }
   }
 }

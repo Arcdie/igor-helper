@@ -409,11 +409,11 @@ const renderBuildings = (buildings) => {
       buttonsSection += `<button class="btn btn-secondary init-modal-update-report">Звіт</button>`;
     }
 
-    appendStr += `<div class="ih-building-container col-4" data-buildingid="${building._id}">
+    appendStr += `<div class="ih-building-container col-12 col-xl-4" data-buildingid="${building._id}">
       <div class="ih-building ih-${enStatus}">
         <div class="ih-status">
-          <span class="col-5">${validDate}</span>
-          <span class="col-5 text-end">${status}</span>
+          <span class="col-12 col-xl-5">${validDate}</span>
+          <span class="col-12 col-xl-5 ih-status-text">${status}</span>
           ${(['Зарезервовано', 'Створено'].includes(status)) ? '<button class="btn-close col-2" aria-label="Close"></button>' : ''}
         </div>
 
@@ -422,7 +422,7 @@ const renderBuildings = (buildings) => {
           <span>${building.comment || ''}</span>
         </div>
 
-        <div class="ih-buttons">
+        <div class="col-12 ih-buttons">
           <button class="btn btn-secondary init-modal-update-building">Редагувати об'єкт</button>
           ${buttonsSection}
         </div>

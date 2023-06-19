@@ -121,8 +121,15 @@
           }
       
           .ih-status {
+            position: relative;
             display: flex;
             justify-content: space-between;
+
+            span {
+              &.ih-status-text {
+                text-align: right;
+              }
+            }
           }
 
           .ih-building-body {
@@ -130,27 +137,9 @@
 
             span {
               display: block;
+              word-break: break-word;
             }
           }
-      
-          /* Body with images
-          .ih-building-body {
-            display: flex;
-            align-items: center;
-      
-            .ih-building-image {
-              img {
-                width: 100%;
-              }
-            }
-      
-            .ih-building-info {
-              span {
-                display: block;
-              }
-            }
-          }
-          */
       
           .ih-buttons {
             display: flex;

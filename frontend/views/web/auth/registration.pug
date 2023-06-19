@@ -61,33 +61,16 @@ block content
 					hr.mt-1.mb-1
 
 					.col-12.mx-auto.ih-enterance
-						.row.align-items-center
-							.col-6
+						.ih-enterance-actions
+							.col-3
 								a.link-secondary(href="/auth/login") Вхід
 
-							.col-6.float-end
+							.col-9.col-xl-6
 								button#register.col-12.btn.btn-primary(tabindex="7") Зареєструватися
 
 					hr.mt-1.mb-1
 
-					.col-12.mx-auto.ih-help
-						.row
-							.col-1
-								img(src="/images/telegram.png", alt="telegram")
-							.col-11
-								span @Arcdie
-						
-						.row
-							.col-1
-								img(src="/images/phone.png", alt="phone")
-							.col-11
-								span +38 (067) 067 06 07
-						
-						.row
-							.col-1
-								img(src="/images/envelope.png", alt="envelope")
-							.col-11
-								span some.mail@gmail.com
+					include ./includes/contacts
 
 block scripts
 	script(src='/libs/validator.min.js')
