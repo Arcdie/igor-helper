@@ -30,7 +30,8 @@ header {
     margin-top: 20px; }
     .page.auth .form .ih-help .ih-contact {
       display: flex;
-      justify-content: space-around; }
+      justify-content: space-around;
+      margin-bottom: 5px; }
       .page.auth .form .ih-help .ih-contact .ih-contact-img {
         display: flex;
         justify-content: center; }
