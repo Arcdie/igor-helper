@@ -54,14 +54,15 @@ $(document).ready(async () => {
 
   $('#buildingClient')
     .on('input', async function () {
+      let isMatch = false;
       const value = this.value;
 
-      const isMatch = $('#buildingClientDatalist option').some(function () {
-        return this.value === value;
+      $('#buildingClientDatalist option').each((i, e) => {
+        if (!isMatch) { isMatch = e.value === value; }
       });
 
-      if (isMatch || val === '') {
-        searchSettings.clientEmail = this.value;
+      if (isMatch || value === '') {
+        searchSettings.clientEmail = value;
         await loadBuildings();
       }
     });
@@ -134,7 +135,7 @@ $(document).ready(async () => {
       $isReserved
         .find('option')
         .attr('selected', false);
-      
+
       $isReserved
         .find(`option[value="${building.isReserved ? 'true' : 'false'}"]`)
         .attr('selected', true);
