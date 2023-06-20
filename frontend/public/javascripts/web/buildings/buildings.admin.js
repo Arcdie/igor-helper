@@ -191,6 +191,7 @@ $(document).ready(async () => {
 
       const $status = $('#updateReportStatus');
       const $comment = $('#updateReportComment');
+      const $reportFiles = $('#updateReportFiles');
       const $listEquipment = $('#updateReportListEquipment');
       const $listSerialNumber = $('#updateReportListSerialNumber');
 
@@ -205,6 +206,17 @@ $(document).ready(async () => {
       $comment.val(report.comment || '');
       $listEquipment.val(report.listEquipment);
       $listSerialNumber.val(report.listSerialNumber);
+
+      $reportFiles.empty().append(`<div class="ih-file">
+        <a href="/images/glasses.png" alt="file" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Проглянути">
+          <img src="/images/glasses.png" alt="glasses" />
+        </a>
+        <div class="ih-choose-file input-group">
+          <input class="form-control" type="file" /><span class="input-group-text">Оберіть файл</span>
+          <input class="form-control" type="text" />
+        </div>
+        <button class="btn-close ih-close" data-bs-toggle="tooltip" data-bs-placement="top" title="Видалити"></button>
+      </div>`);
 
       if (reportFiles.length) {
         const $updateReportFiles = $('#updateReportFiles');

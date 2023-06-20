@@ -124,12 +124,23 @@ $(document).ready(async () => {
       const reportFiles = await getReportFiles(report._id);
 
       const $comment = $('#updateReportComment');
+      const $reportFiles = $('#updateReportFiles');
       const $listEquipment = $('#updateReportListEquipment');
       const $listSerialNumber = $('#updateReportListSerialNumber');
 
       $comment.val(report.comment || '');
       $listEquipment.val(report.listEquipment || '');
       $listSerialNumber.val(report.listSerialNumber || '');
+
+      $reportFiles.empty().append(`<div class="ih-file">
+        <a href="/images/glasses.png" alt="file" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Проглянути">
+          <img src="/images/glasses.png" alt="glasses" />
+        </a>
+
+        <div class="ih-choose-file input-group">
+          <input class="form-control" type="text" disabled="disabled" />
+        </div>
+      </div>`);
 
       if (reportFiles.length) {
         const $updateReportFiles = $('#updateReportFiles');
