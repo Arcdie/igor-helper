@@ -13,6 +13,11 @@ export const mailForgotPassword = (to: string, password: string) => sendEmail({
   message: `Пароль для входу в аккаунт: ${password}`,
 });
 
+export const mailUserUpdated = (to: string) => sendEmail({
+  to, subject: 'Інформація про ваш профіль була оновлена',
+  message: 'Інформація про ваш профіль була оновлена',
+});
+
 /* Buildings */
 export const mailBuildingCreated = (to: string, building: IBuilding) => sendEmail({
   to, subject: `Обʼєкт ${building.name} було створено`,

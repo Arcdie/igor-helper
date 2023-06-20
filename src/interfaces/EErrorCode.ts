@@ -1,4 +1,6 @@
 export enum EErrorCode {
+  INVALID_ROLE = 'Передано невалідна роль',
+
   INVALID_STATUS = 'Передано невалідний статус',
   INVALID_EMAIL = 'Передано невалідний email',
   INVALID_PASSWORD = 'Пароль має містити хоча б 6 символів',

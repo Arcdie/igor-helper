@@ -6,6 +6,7 @@ block variables
 
 block content
   include ../../modals/googleMap
+  include ../../modals/updateUser/updateUserAdmin
   include ../../modals/updateReport/updateReportAdmin
   include ../../modals/updateBuilding/updateBuildingAdmin
 
@@ -48,11 +49,27 @@ block content
               option(value='desc', selected='') Нові перші
               option(value='asc') Старі перші
 
-      .ih-list-building
+      .ih-list-building-admin
+        table.table.table-hover.table-bordered.align-middle.col-12
+          thead
+            tr
+              th.ih-building-number #
+              th.ih-building-status Статус
+              th.ih-building-created Дата створення
+              th.ih-building-client Клієнт
+              th.ih-building-name Назва
+              th.ih-building-region Область
+              th.ih-building-coordinates Координати
+              th.ih-building-equipment Обладнання
+              th.ih-building-button
+              th.ih-building-button
+
+          tbody
 
 block scripts
   script(src='/libs/moment.min.js')
-  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBY_u1DoUqxJ5rqG-qngelD5b8rZVUfH1Y')
+  script(src='/libs/maskinput.min.js')
+  script(src= `https://maps.googleapis.com/maps/api/js?key=${settings.config.google.apikey}`)
 
   //- script(src='/javascripts/web/buildings/builings.common.js')
   script(src='/javascripts/web/buildings/buildings.admin.js')

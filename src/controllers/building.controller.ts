@@ -117,8 +117,19 @@ export const getBuildings = async (req: { user: IUser, query: GetBuildingsDto },
 
   let results = buildings.map(b => ({
     ...b,
+    user,
     report: reports.find(r => r?.buildingId.toString() === b._id.toString()),
   }));
+
+  if (isAdmin(user)) {
+    const userIds = results.map(r => r.userId);
+    const users = await userRepository.findManyById(userIds);
+
+    results = results.map(r => ({
+      ...r,
+      user: users.find(u => u._id.toString() === r.userId.toString()) || r.user,
+    }));
+  }
 
   if (query.status) {
     switch (+query.status) {

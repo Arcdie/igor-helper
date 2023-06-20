@@ -51,8 +51,6 @@ const addAlert = (type, message) => {
     <div class="alert-content col-10">${message}</div>
     <button class="btn-close col-2" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>`);
-
-  setTimeout(() => { $(`#alert-${id}`).remove(); }, 5000);
 };
 
 const getSettings = () => sendGetRequest(URL_GET_SETTINGS);

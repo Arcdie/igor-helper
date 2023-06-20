@@ -1,0 +1,40 @@
+#updateUser.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5.modal-title Редагувати користувача
+        button.btn-close(data-bs-dismiss='modal')
+
+      .modal-body
+        .mb-3
+          label.form-label(for='updateUserEmail') Email
+          input#updateUserEmail.form-control.ih-input(type="text", tabindex="1")
+
+        .mb-3
+          label.form-label(for='updateUserPassword') Пароль
+          input#updateUserPassword.form-control.ih-input(type="text", tabindex="2")
+
+        .mb-3
+          label.form-label(for='updateUserName') Ім'я
+          input#updateUserName.form-control.ih-input(type="text", tabindex="3")
+
+        .mb-3
+          label.form-label(for='updateUserCompanyName') Компанія
+          input#updateUserCompanyName.form-control.ih-input(type="text", tabindex="4")
+
+        .mb-3
+          label.form-label(for='updateUserPhoneNumber') Телефон
+          input#updateUserPhoneNumber.form-control.ih-input(type="tel", tabindex="5")
+        
+        .mb-3
+          label.form-label(for='updateUserProviderName') Постачальник
+          input#updateUserProviderName.form-control.ih-input(type="text", tabindex="6")
+
+        .mb-3
+          label.form-label Роль
+          select#updateUserRole.form-select(aria-describedby='role', tabindex="7")
+            option(value='0') Адмін
+            option(value='1') Користувач
+
+      .modal-footer
+        button.btn.btn-primary#updateUserButton(tabindex="8") Редагувати

@@ -40,7 +40,7 @@ block content
 
 block scripts
   script(src='/libs/moment.min.js')
-  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBY_u1DoUqxJ5rqG-qngelD5b8rZVUfH1Y')
+  script(src= `https://maps.googleapis.com/maps/api/js?key=${settings.config.google.apikey}`)
 
   //- script(src='/javascripts/web/buildings/builings.common.js')
   script(src='/javascripts/web/buildings/buildings.user.js')

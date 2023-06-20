@@ -6,6 +6,8 @@ vars, validationClassName, regionCoordinatesMapper
 
 /* Constants */
 
+const URL_GET_USER = '/api/users/:userId';
+const URL_UPDATE_USER = '/api/users/:userId';
 const URL_GET_CLIENTS = '/api/users/clients';
 const URL_GET_BUILDINGS = '/api/buildings';
 const URL_GET_BUILDING = '/api/buildings/:buildingId';
@@ -25,16 +27,19 @@ const searchSettings = {
 };
 
 let settings;
+let targetUserId;
 let targetBuildingId;
 
 /* JQuery */
-const $listBuilding = $('.ih-list-building');
+const $listBuilding = $('.ih-list-building-admin table tbody');
 
 const $modalGoogleMap = $('.modal#googleMap');
+const $modalUpdateUser = $('.modal#updateUser');
 const $modalUpdateReport = $('.modal#updateReport');
 const $modalUpdateBuilding = $('.modal#updateBuilding');
 
 const modalGoogleMap = new bootstrap.Modal($modalGoogleMap[0], {});
+const modalUpdateUser = new bootstrap.Modal($modalUpdateUser[0], {});
 const modalUpdateReport = new bootstrap.Modal($modalUpdateReport[0], {});
 const modalUpdateBuilding = new bootstrap.Modal($modalUpdateBuilding[0], {});
 
@@ -96,26 +101,48 @@ $(document).ready(async () => {
       await loadBuildings();
     });
 
-  $('.ih-list-building')
-    // archive
-    .on('click', '.ih-building .btn-close', async function () {
-      if (!confirm("Ви підтверджуєте видалення об'єкту?")) {
+  $('.ih-list-building-admin')
+    // update user
+    .on('click', '.ih-building-user', async function () {
+      const userId = $(this).data('userid');
+      
+      const user = await getUser(userId);
+
+      if (!user) {
         return false;
       }
 
-      const $container = $(this).closest('.ih-building-container');
-      targetBuildingId = $container.data('buildingid');
+      targetUserId = userId;
 
-      const result = await archiveBuilding(targetBuildingId);
+      const $name = $('#updateUserName');
+      const $role = $('#updateUserRole');
+      const $email = $('#updateUserEmail');
+      const $password = $('#updateUserPassword');
+      const $companyName = $('#updateUserCompanyName');
+      const $phoneNumber = $('#updateUserPhoneNumber');
+      const $providerName = $('#updateUserProviderName');
 
-      if (result) {
-        $container.remove();
-        addAlert('success', `Об'єк успішно видалено`);
-      }
+      $role
+        .find('option')
+        .attr('selected', false);
+
+      $role
+        .find(`option[value="${user.role}"`)
+        .attr('selected', true);
+
+      $name.val(user.name);
+      $email.val(user.email);
+      $password.val(user.password);
+      $companyName.val(user.companyName);
+      $phoneNumber.val(user.phoneNumber);
+      $providerName.val(user.providerName);
+
+      modalUpdateUser.show();
     })
-    // update
-    .on('click', '.ih-building .init-modal-update-building', async function () {
-      const $container = $(this).closest('.ih-building-container');
+
+    // update building
+    .on('click', 'button.init-modal-update-building', async function () {
+      const $container = $(this).closest('tr');
       targetBuildingId = $container.data('buildingid');
 
       const building = await getBuilding(targetBuildingId);
@@ -150,8 +177,8 @@ $(document).ready(async () => {
       modalUpdateBuilding.show();
     })
     // updateReport
-    .on('click', '.ih-building .init-modal-update-report', async function () {
-      const $container = $(this).closest('.ih-building-container');
+    .on('click', 'button.init-modal-update-report', async function () {
+      const $container = $(this).closest('tr');
       targetBuildingId = $container.data('buildingid');
 
       const report = await getReportByBuildingId(targetBuildingId);
@@ -308,6 +335,24 @@ $(document).ready(async () => {
 
         await loadBuildings();
       }
+    })
+    .on('click', '#removeBuildingButton', async function () {
+      const enable = buttonDisabler($(this));
+
+      if (!confirm("Ви підтверджуєте видалення об'єкту?")) {
+        enable();
+        return false;
+      }
+
+      const result = await archiveBuilding(targetBuildingId);
+      enable();
+
+      if (result) {
+        addAlert('success', `Об'єкт успішно видалено`);
+        $modalUpdateBuilding.find('button.btn-close').click();
+
+        await loadBuildings();
+      }
     });
 
   // modal#updateReport
@@ -341,6 +386,59 @@ $(document).ready(async () => {
       $modalUpdateReport.find('button.btn-close').click();
 
       await loadBuildings();
+    });
+
+  // modal#updateUser
+  $('#updateUserButton')
+    .on('click', async function () {
+      const enable = buttonDisabler($(this));
+
+      const $role = $('#updateUserRole');
+      const $name = $('#updateUserName');
+      const $email = $('#updateUserEmail');
+      const $password = $('#updateUserPassword');
+      const $companyName = $('#updateUserCompanyName');
+      const $phoneNumber = $('#updateUserPhoneNumber');
+      const $providerName = $('#updateUserProviderName');
+
+      let isValid = true;
+
+      [$name, $email, $password, $companyName, $phoneNumber, $providerName].forEach($e => {
+        const value = $e.val();
+
+        if (!value) {
+          isValid = false;
+          $e.addClass(validationClassName);
+        } else {
+          $e.removeClass(validationClassName)
+        }
+      });
+
+      if (!isValid) {
+        enable();
+        return false;
+      }
+
+      const name = $name.val();
+      const email = $email.val();
+      const password = $password.val();
+      const companyName = $companyName.val();
+      const phoneNumber = $phoneNumber.val();
+      const providerName = $providerName.val();
+      const role = parseInt($role.val(), 10);
+
+      const result = await updateUser(targetUserId, {
+        name, email, password, companyName, phoneNumber, providerName, role,
+      });
+
+      enable();
+
+      if (result) {
+        addAlert('success', 'Профіль користувача успішно змінено');
+        $modalUpdateUser.find('button.btn-close').click();
+
+        await loadBuildings();
+      }
     });
 });
 
@@ -381,7 +479,7 @@ const loadBuildings = async () => {
 const renderBuildings = (buildings) => {
   let appendStr = '';
 
-  buildings.forEach(building => {
+  buildings.forEach((building, index) => {
     let enStatus = building.isReserved ? 'Reserved' : 'Created';
     let status = building.isReserved ? 'Зарезервовано' : 'Створено';
 
@@ -404,31 +502,28 @@ const renderBuildings = (buildings) => {
 
     const validDate = moment(building.createdAt).format('DD.MM.YY HH:mm');
 
-    let buttonsSection = '';
+    const listEquipment = building.report
+      ? building.report.listEquipment !== building.listEquipment
+        ? building.report.listEquipment : building.listEquipment : building.listEquipment;
 
-    if (!['Зарезервовано', 'Створено'].includes(status)) {
-      buttonsSection += `<button class="btn btn-secondary init-modal-update-report">Звіт</button>`;
-    }
-
-    appendStr += `<div class="ih-building-container col-12 col-xl-4" data-buildingid="${building._id}">
-      <div class="ih-building ih-${enStatus}">
-        <div class="ih-status">
-          <span class="col-12 col-xl-5">${validDate}</span>
-          <span class="col-12 col-xl-5 ih-status-text">${status}</span>
-          ${(['Зарезервовано', 'Створено'].includes(status)) ? '<button class="btn-close col-2" aria-label="Close"></button>' : ''}
-        </div>
-
-        <div class="ih-building-body">
-          <span>${building.name} (${building.regionName} обл.)</span>
-          <span>${building.comment || ''}</span>
-        </div>
-
-        <div class="col-12 ih-buttons">
-          <button class="btn btn-secondary init-modal-update-building">Редагувати об'єкт</button>
-          ${buttonsSection}
-        </div>
-      </div>
-    </div>`;
+    appendStr += `<tr class="ih-${enStatus}" data-buildingid="${building._id}">
+      <td>${index + 1}</td>
+      <td>${status}</td>
+      <td>${validDate}</td>
+      <td class="ih-building-user" data-userid="${building.userId}">
+        <span>${building.user.name}</span>
+        <span>${building.user.email}</span>
+      </td>
+      <td>${building.name}</td>
+      <td>${building.regionName}</td>
+      <td>
+        <span>${building.lat}</span>
+        <span>${building.lng}</span>
+      </td>
+      <td>${listEquipment}</td>
+      <td><button class="btn btn-secondary init-modal-update-building">Об'єкт</button></td>
+      <td>${building.report ? '<button class="btn btn-secondary init-modal-update-report">Звіт</button>' : ''}</td>
+    </tr>`;
   });
 
   $listBuilding.empty().append(appendStr);
@@ -447,6 +542,16 @@ const disableLink = () => {
 };
 
 const getClients = () => sendGetRequest(URL_GET_CLIENTS);
+
+const getUser = (userId) => {
+  const url = URL_GET_USER.replace(':userId', userId);
+  return sendGetRequest(url);
+};
+
+const updateUser = (userId, body) => {
+  const url = URL_UPDATE_USER.replace(':userId', userId);
+  return sendPutRequest(url, body);
+};
 
 const getReports = () => sendGetRequest(URL_GET_BUILDINGS, searchSettings);
 const getBuildings = (searchSettings) => sendGetRequest(URL_GET_BUILDINGS, searchSettings);
