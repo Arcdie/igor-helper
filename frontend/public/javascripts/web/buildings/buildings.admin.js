@@ -211,11 +211,10 @@ $(document).ready(async () => {
         <a href="/images/glasses.png" alt="file" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Проглянути">
           <img src="/images/glasses.png" alt="glasses" />
         </a>
+
         <div class="ih-choose-file input-group">
-          <input class="form-control" type="file" /><span class="input-group-text">Оберіть файл</span>
-          <input class="form-control" type="text" />
+          <input class="form-control" type="text" disabled="disabled" />
         </div>
-        <button class="btn-close ih-close" data-bs-toggle="tooltip" data-bs-placement="top" title="Видалити"></button>
       </div>`);
 
       if (reportFiles.length) {
