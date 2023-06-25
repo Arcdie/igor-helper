@@ -1,6 +1,7 @@
 const URL_GET_SETTINGS = '/api/settings';
 
 const $alerts = $('.alerts');
+const $logotype = $('.ih-logotype');
 
 const validationClassName = 'is-invalid';
 
@@ -65,5 +66,10 @@ $(document).ready(() => {
 
   if (typeof $.mask !== 'undefined') {
     $('input[type="tel"]').mask('+38(999) 999-99-99');
+  }
+
+  if ($logotype.length) {
+    const siteName = location.host.split('.')[0];
+    $logotype.find('a').append(`<img src="/images/${siteName}.png">`);
   }
 });

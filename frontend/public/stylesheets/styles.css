@@ -18,6 +18,8 @@ body {
 
 header {
   margin-bottom: 20px; }
+  header .ih-logotype img {
+    width: 60px; }
 
 .page.auth .form {
   padding: 30px 20px;
