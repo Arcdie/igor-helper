@@ -12,9 +12,13 @@ export const getSettings = () => {
       regions: regionsUA,
       errors: EErrorCode,
       config: {
+        app: {
+          name: config.app.name,
+        },
+
         google: {
           apikey: config.google.apikey,
-        }
+        },
       },
     },
   }

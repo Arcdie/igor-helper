@@ -7,7 +7,11 @@ vars,
 /* Constants */
 const fileList = {
   auxhp: [
-
+    '20230210_R32_Technical_&_Service_manual_Air_to_water_heat_pump_split.docx',
+    'Instalation manual AUX HP.pdf',
+    'Instalation manual IDU AUX HP.pdf',
+    'Remote controller AUX HP.pdf',
+    'Technical data AUX HP.pdf',
   ],
 
   thermav: [

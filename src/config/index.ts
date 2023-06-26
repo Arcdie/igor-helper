@@ -1,10 +1,10 @@
 export default {
   app: {
     host: 'localhost',
-    name: 'igor-helper',
     url: process.env.APP_URL,
     environment: process.env.NODE_ENV,
     port: Number(process.env.APP_PORT),
+    name: String(process.env.SENDGRID_FROM),
     cookieLifetime: 30 * 24 * 60 * 60 * 1000,
   },
 

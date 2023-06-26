@@ -16,13 +16,19 @@ export const getPublicFilesPage = (req: Request, res: Response) => {
 };
 
 export const getLoginPage = (req: Request, res: Response) => {
-  res.render('web/auth/login');
+  res.render('web/auth/login', {
+    settings: getSettings().result,
+  });
 };
 
 export const getRegistrationPage = (req: Request, res: Response) => {
-  res.render('web/auth/registration');
+  res.render('web/auth/registration', {
+    settings: getSettings().result,
+  });
 };
 
 export const getForgotPasswordPage = (req: Request, res: Response) => {
-  res.render('web/auth/forgotPassword');
+  res.render('web/auth/forgotPassword', {
+    settings: getSettings().result,
+  });
 };
