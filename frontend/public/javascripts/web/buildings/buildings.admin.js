@@ -31,7 +31,7 @@ let targetUserId;
 let targetBuildingId;
 
 /* JQuery */
-const $listBuilding = $('.ih-list-building-admin table tbody');
+const $listBuilding = $('.ih-building-list-admin table tbody');
 
 const $modalGoogleMap = $('.modal#googleMap');
 const $modalUpdateUser = $('.modal#updateUser');
