@@ -47,7 +47,7 @@ $(document).ready(async () => {
   disableLink();
 
   await loadBuildings();
-  await loadClientDatalist();
+  await loadUserDatalist();
   settings = await getSettings();
 
   if (!settings) {
@@ -453,9 +453,9 @@ $(document).ready(async () => {
     });
 });
 
-const loadClientDatalist = async () => {
+const loadUserDatalist = async () => {
   const users = await getUsers();
-  const appendStr = clients.reduce((a, v) => a += `<option value="${v.email}">${v.name}</option>`, '');
+  const appendStr = users.reduce((a, v) => a += `<option value="${v.email}">${v.name}</option>`, '');
   $('#buildingClientDatalist').html(appendStr);
 };
 
