@@ -1,0 +1,51 @@
+.page.users {
+  .ih-sorting {
+    padding: 15px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    div:last-child {
+      .ih-sorting-option {
+        margin-bottom: 0;
+      }
+    }
+
+    .ih-sorting-option {
+      margin-bottom: 15px;
+    }
+
+    .ih-add-building {
+      button {
+        float: right;
+      }
+    }
+  }
+
+  .ih-user-list-admin {
+    padding: 15px;
+    background-color: white;
+    margin-top: 20px;
+
+    table {
+      tr {
+        th {
+          text-align: center;
+        }
+
+        td {
+          text-align: center;
+
+          span {
+            display: block;
+          }
+
+          input {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}

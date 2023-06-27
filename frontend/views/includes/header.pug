@@ -4,6 +4,10 @@ header
       ul.navbar-nav
         li.nav-item
           a.nav-link.link-primary(href="/buildings") Об'єкти
+
+        if (user.role === 0)
+          li.nav-item
+          a.nav-link.link-primary(href='/users') Користувачі
       
         li.nav-item
           a.nav-link.link-primary(href='/publicFiles') База знань
@@ -11,9 +15,6 @@ header
       ul.navbar-nav.ih-logotype
         li.nav-item
           a(href='/')
-            //- img(src='/images/auxhp.png', alt='auxhp')
-            //- img(src='/images/thermav.png', alt='thermav')
-
 
       ul.navbar-nav
         a.nav-link.link-primary(href='/auth/logout') Вийти

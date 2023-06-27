@@ -24,8 +24,9 @@ import { EErrorCode } from '../interfaces/EErrorCode';
 
 import { updateUserDto, UpdateUserDto } from './dto/updateUser.dto';
 
-export const getClients = async (req: Request, res: Response) => {
+export const getUsers = async (req: Request, res: Response) => {
   const user = req.user;
+  const { role, email }: { role?: number, email?: string } = req.query;
 
   if (!user || !user._id) {
     return unauthorizedResponse(res, EErrorCode.INVALID_AUTH_TOKEN);
@@ -35,7 +36,11 @@ export const getClients = async (req: Request, res: Response) => {
     return forbiddenResponse(res, EErrorCode.NO_PERMISSIONS);
   }
 
-  const results = await userRepository.findByRole(ERole.User);
+  if (role && !Object.values(ERole).includes(+role)) {
+    return badRequestResponse(res, EErrorCode.INVALID_ROLE);
+  }
+
+  const results = await userRepository.findManyBy({ role, email });
 
   return successResponse(res, {
     status: true,

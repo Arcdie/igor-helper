@@ -1,14 +1,15 @@
 import { Request, Response } from 'express';
 
 import { isAdmin } from '../services/user.service';
-import { getSettings } from '../services/settings.service';
 
 export const getIndexPage = (req: Request, res: Response) => res.redirect('/buildings');
 
+export const getUsersPage = (req: Request, res: Response) => {
+  res.render('web/users/usersAdmin');
+};
+
 export const getBuildingsPage = (req: Request, res: Response) => {
-  res.render(`web/buildings/buildings${isAdmin(req.user) ? 'Admin' : 'User'}`, {
-    settings: getSettings().result,
-  });
+  res.render(`web/buildings/buildings${isAdmin(req.user) ? 'Admin' : 'User'}`);
 };
 
 export const getPublicFilesPage = (req: Request, res: Response) => {
@@ -16,19 +17,13 @@ export const getPublicFilesPage = (req: Request, res: Response) => {
 };
 
 export const getLoginPage = (req: Request, res: Response) => {
-  res.render('web/auth/login', {
-    settings: getSettings().result,
-  });
+  res.render('web/auth/login');
 };
 
 export const getRegistrationPage = (req: Request, res: Response) => {
-  res.render('web/auth/registration', {
-    settings: getSettings().result,
-  });
+  res.render('web/auth/registration');
 };
 
 export const getForgotPasswordPage = (req: Request, res: Response) => {
-  res.render('web/auth/forgotPassword', {
-    settings: getSettings().result,
-  });
+  res.render('web/auth/forgotPassword');
 };

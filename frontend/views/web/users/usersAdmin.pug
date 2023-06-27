@@ -1,0 +1,39 @@
+extends ../../app
+
+block variables
+  -
+    const pageTitle = 'Користувачі';
+
+block content
+  include ../../modals/updateUser/updateUserAdmin
+
+  .page.users
+    .container-fluid
+      include ../../includes/header
+
+      .ih-sorting
+        .col-12.col-xl-3
+          .input-group.ih-sorting-option
+            span.input-group-text Користувач
+            input#userUsers.form-control(list='userUsersDatalist', placeholder='Усі, введіть для пошуку...')
+            datalist#userUsersDatalist
+
+      .ih-user-list-admin
+        table.table.table-hover.table-bordered.align-middle.col-12
+          thead
+            tr
+              th.ih-user-number #
+              th.ih-user-name Ім'я
+              th.ih-user-email Email
+              th.ih-user-phone Телефон
+              th.ih-user-company Компанія
+              th.ih-user-provider Постачальник
+              th.ih-user-button
+
+          tbody
+
+block scripts
+  script(src='/libs/moment.min.js')
+  script(src='/libs/maskinput.min.js')
+
+  script(src='/javascripts/web/users/users.admin.js')

@@ -52,6 +52,32 @@ header {
         display: flex;
         align-items: center; }
 
+.page.users .ih-sorting {
+  padding: 15px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end; }
+  .page.users .ih-sorting div:last-child .ih-sorting-option {
+    margin-bottom: 0; }
+  .page.users .ih-sorting .ih-sorting-option {
+    margin-bottom: 15px; }
+  .page.users .ih-sorting .ih-add-building button {
+    float: right; }
+
+.page.users .ih-user-list-admin {
+  padding: 15px;
+  background-color: white;
+  margin-top: 20px; }
+  .page.users .ih-user-list-admin table tr th {
+    text-align: center; }
+  .page.users .ih-user-list-admin table tr td {
+    text-align: center; }
+    .page.users .ih-user-list-admin table tr td span {
+      display: block; }
+    .page.users .ih-user-list-admin table tr td input {
+      text-align: center; }
+
 #map {
   width: 100%;
   height: 650px; }
@@ -98,35 +124,35 @@ header {
   .page.buildings .ih-sorting .ih-add-building button {
     float: right; }
 
-.page.buildings .ih-list-building-admin {
+.page.buildings .ih-building-list-admin {
   padding: 15px;
   background-color: white;
   margin-top: 20px; }
-  .page.buildings .ih-list-building-admin table tr th {
+  .page.buildings .ih-building-list-admin table tr th {
     text-align: center; }
-    .page.buildings .ih-list-building-admin table tr th.ih-building-number {
+    .page.buildings .ih-building-list-admin table tr th.ih-building-number {
       width: 3%; }
-    .page.buildings .ih-list-building-admin table tr th.ih-building-status {
+    .page.buildings .ih-building-list-admin table tr th.ih-building-status {
       width: 12%; }
-    .page.buildings .ih-list-building-admin table tr th.ih-building-created {
+    .page.buildings .ih-building-list-admin table tr th.ih-building-created {
       width: 11%; }
-    .page.buildings .ih-list-building-admin table tr th.ih-building-client {
+    .page.buildings .ih-building-list-admin table tr th.ih-building-client {
       width: 16%; }
-    .page.buildings .ih-list-building-admin table tr th.ih-building-name {
+    .page.buildings .ih-building-list-admin table tr th.ih-building-name {
       width: 11%; }
-    .page.buildings .ih-list-building-admin table tr th.ih-building-region {
+    .page.buildings .ih-building-list-admin table tr th.ih-building-region {
       width: 10%; }
-    .page.buildings .ih-list-building-admin table tr th.ih-building-coordinates {
+    .page.buildings .ih-building-list-admin table tr th.ih-building-coordinates {
       width: 9%; }
-    .page.buildings .ih-list-building-admin table tr th.ih-building-equipment {
+    .page.buildings .ih-building-list-admin table tr th.ih-building-equipment {
       width: 21%; }
-    .page.buildings .ih-list-building-admin table tr th.ih-building-button {
+    .page.buildings .ih-building-list-admin table tr th.ih-building-button {
       width: 7%; }
-  .page.buildings .ih-list-building-admin table tr td {
+  .page.buildings .ih-building-list-admin table tr td {
     text-align: center; }
-    .page.buildings .ih-list-building-admin table tr td span {
+    .page.buildings .ih-building-list-admin table tr td span {
       display: block; }
-    .page.buildings .ih-list-building-admin table tr td input {
+    .page.buildings .ih-building-list-admin table tr td input {
       text-align: center; }
 
 .page.buildings .ih-list-building {

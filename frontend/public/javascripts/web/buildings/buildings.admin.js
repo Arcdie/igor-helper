@@ -6,9 +6,9 @@ vars, validationClassName, regionCoordinatesMapper
 
 /* Constants */
 
+const URL_GET_USERS = '/api/users';
 const URL_GET_USER = '/api/users/:userId';
 const URL_UPDATE_USER = '/api/users/:userId';
-const URL_GET_CLIENTS = '/api/users/clients';
 const URL_GET_BUILDINGS = '/api/buildings';
 const URL_GET_BUILDING = '/api/buildings/:buildingId';
 const URL_UPDATE_BUILDING = '/api/buildings/:buildingId';
@@ -454,7 +454,7 @@ $(document).ready(async () => {
 });
 
 const loadClientDatalist = async () => {
-  const clients = await getClients();
+  const users = await getUsers();
   const appendStr = clients.reduce((a, v) => a += `<option value="${v.email}">${v.name}</option>`, '');
   $('#buildingClientDatalist').html(appendStr);
 };
@@ -552,7 +552,7 @@ const disableLink = () => {
   });
 };
 
-const getClients = () => sendGetRequest(URL_GET_CLIENTS);
+const getUsers = () => sendGetRequest(URL_GET_USERS, { role: 1 });
 
 const getUser = (userId) => {
   const url = URL_GET_USER.replace(':userId', userId);
