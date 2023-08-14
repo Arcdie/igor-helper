@@ -101,7 +101,7 @@ $(document).ready(async () => {
       await loadBuildings();
     });
 
-  $('.ih-list-building-admin')
+  $('.ih-building-list-admin')
     // update user
     .on('click', '.ih-building-user', async function () {
       const userId = $(this).data('userid');
