@@ -128,32 +128,36 @@ header {
   padding: 15px;
   background-color: white;
   margin-top: 20px; }
-  .page.buildings .ih-building-list-admin table tr th {
-    text-align: center; }
-    .page.buildings .ih-building-list-admin table tr th.ih-building-number {
-      width: 3%; }
-    .page.buildings .ih-building-list-admin table tr th.ih-building-status {
-      width: 12%; }
-    .page.buildings .ih-building-list-admin table tr th.ih-building-created {
-      width: 11%; }
-    .page.buildings .ih-building-list-admin table tr th.ih-building-client {
-      width: 16%; }
-    .page.buildings .ih-building-list-admin table tr th.ih-building-name {
-      width: 11%; }
-    .page.buildings .ih-building-list-admin table tr th.ih-building-region {
-      width: 10%; }
-    .page.buildings .ih-building-list-admin table tr th.ih-building-coordinates {
-      width: 9%; }
-    .page.buildings .ih-building-list-admin table tr th.ih-building-equipment {
-      width: 21%; }
-    .page.buildings .ih-building-list-admin table tr th.ih-building-button {
-      width: 7%; }
-  .page.buildings .ih-building-list-admin table tr td {
-    text-align: center; }
-    .page.buildings .ih-building-list-admin table tr td span {
-      display: block; }
-    .page.buildings .ih-building-list-admin table tr td input {
+  .page.buildings .ih-building-list-admin table {
+    font-size: 1vw; }
+    .page.buildings .ih-building-list-admin table button {
+      font-size: 1vw; }
+    .page.buildings .ih-building-list-admin table tr th {
       text-align: center; }
+      .page.buildings .ih-building-list-admin table tr th.ih-building-number {
+        width: 3%; }
+      .page.buildings .ih-building-list-admin table tr th.ih-building-status {
+        width: 12%; }
+      .page.buildings .ih-building-list-admin table tr th.ih-building-created {
+        width: 11%; }
+      .page.buildings .ih-building-list-admin table tr th.ih-building-client {
+        width: 16%; }
+      .page.buildings .ih-building-list-admin table tr th.ih-building-name {
+        width: 11%; }
+      .page.buildings .ih-building-list-admin table tr th.ih-building-region {
+        width: 10%; }
+      .page.buildings .ih-building-list-admin table tr th.ih-building-coordinates {
+        width: 9%; }
+      .page.buildings .ih-building-list-admin table tr th.ih-building-equipment {
+        width: 21%; }
+      .page.buildings .ih-building-list-admin table tr th.ih-building-button {
+        width: 7%; }
+    .page.buildings .ih-building-list-admin table tr td {
+      text-align: center; }
+      .page.buildings .ih-building-list-admin table tr td span {
+        display: block; }
+      .page.buildings .ih-building-list-admin table tr td input {
+        text-align: center; }
 
 .page.buildings .ih-list-building {
   padding: 15px;
